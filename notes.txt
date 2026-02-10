@@ -1,0 +1,16 @@
+pods: groups of containers. Can group together container images into single deployable unit
+services: provide load balancing, naming, discovery to isolate one microservice from anotehr
+namespaces: provide isolation and access control so that each microservice can control the degree which other services interact with it 
+ingress: objects provide easy to use frontend that can combine multiple microservices into a single externalized API surface area
+cluster components
+Kubernetes proxy: responsible for routing network traffic to load-balennced services in k8s cluster. Must be present on every cluster node.
+Kubernetes DNS: provides naming and discovery for services defined in cluster. Runs as a replicated service on cluster.
+Kubernetes UI: 
+kubectl
+kubectl version
+kubectl get nodes
+kubectl describe nodes kube1
+kubectl getcomponentstatuses
+kubectl get daemonSets --namespace=kube-system kube-proxy
+kubectl get deployments --namespace-kube-system core-dns
+kubectl get services --namespace-kube-system core-dns
