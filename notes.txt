@@ -5,6 +5,7 @@ ingress: objects provide easy to use frontend that can combine multiple microser
 cluster components
 Kubernetes proxy: responsible for routing network traffic to load-balennced services in k8s cluster. Must be present on every cluster node.
 Kubernetes DNS: provides naming and discovery for services defined in cluster. Runs as a replicated service on cluster.
+Each Kubernetes object exists at a unique HTTP path; for example, https://your-k8s.com/api/v1/namespaces/default/pods/my-pod
 $HOME/.kube/config
 Kubernetes UI: 
 kubectl
