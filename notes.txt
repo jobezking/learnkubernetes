@@ -1,4 +1,4 @@
-pods: groups of containers. Can group together container images into single deployable unit
+pods: groups of containers. Can group together container images into single deployable unit. Generally but not always one pod per container
 services: provide load balancing, naming, discovery to isolate one microservice from anotehr
 namespaces: provide isolation and access control so that each microservice can control the degree which other services interact with it 
 ingress: objects provide easy to use frontend that can combine multiple microservices into a single externalized API surface area
@@ -24,3 +24,24 @@ kubectl get services --namespace-kube-system core-dns
 kubectl --namespace=mystuff
 kubectl config set-context my-context --namespace=mystuff
 kubectl config use-context my-context
+kubectl apply -f obj.yaml   #create or update object
+kubectl edit <resource-name> <obj-name>
+kubectl apply -f obj.yaml view-last-applied
+kubectl delete -f obj.yaml
+kubectl delete <resource-name> <obj-name> # i.e. kubectl delete pod nginx-pod or kubectl delete deployment hello-world or kubectl delete service sample-service
+kubectl label pods bar color=red
+kubectl label pods bar color-
+kubectl logs <pod-name>
+kubectl exec -it <pod-name> -- bash
+kubectl attach -it <pod-name>
+kubectl cp <pod-name>:</path/to/remote/file> </path/to/local/file>  #copies file from running container to your local machine.
+kubectl port-forward <pod-name> 8080:80 # opens up a connection that forwards traffic from the local machine on port 8080 to the remote container on port 80.
+You can also use port-forward command with services by specifying services/service-name instead of pod-name but if you port-forward to a service the requests will only 
+be forwarded to a single pod in the service. They will not go through the service load balancer
+kubectl get events #returns last 10 events of all objects in given namespace
+kubectl top nodes
+kubectl top pods
+kubectl top pods --all-namespaces
+kubectl cordon  #prevent future pods from being scheduled on the machine that the command was entered
+kubectl drain   #remove any pod currently running on machine
+kubectl uncordon    #re-enable pod scheduling
