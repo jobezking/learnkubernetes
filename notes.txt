@@ -9,6 +9,8 @@ Each Kubernetes object exists at a unique HTTP path; for example, https://your-k
 $HOME/.kube/config
 Kubernetes UI: 
 kubectl
+kubectl help
+kubectl help <command-name>
 kubectl version
 kubectl get <resource-name>
 kubectl get <resource-name> <obj-name>
@@ -45,3 +47,14 @@ kubectl top pods --all-namespaces
 kubectl cordon  #prevent future pods from being scheduled on the machine that the command was entered
 kubectl drain   #remove any pod currently running on machine
 kubectl uncordon    #re-enable pod scheduling
+kubectl run kuard --generator=run-pod/v1 --image=gcr.io/kuar-demo/kuard-amd64:blue      # creates pod
+kubectl apply -f kuard-pod.yaml
+kubectl get pods
+kubectl describe pods kuard
+kubectl delete pods/kuard
+kubectl delete -f kuard-pod.yaml
+kubectl logs kuard
+kubectl exec kuard -- date
+kubectl exec -it kuard -- ash   #get interactive session
+kubectl apply -f kuard-pod-health.yaml
+kubectl port-forward kuard 8080:8080
