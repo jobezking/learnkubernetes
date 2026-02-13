@@ -38,3 +38,6 @@ kubectl get services -o wide
 ALPACA_POD=$(kubectl get pods -l app=alpaca -o jsonpath='{.items[0].metadata.name}')
 kubectl port-forward $ALPACA_POD 48858:8080
 http://localhost:48858
+
+kubectl get pods -o wide --show-labels
+kubectl get pods -o wide --selector=app=alpaca
