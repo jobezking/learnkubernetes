@@ -35,4 +35,6 @@ kubectl scale deployment bandicoot-prod --replicas 2
 kubectl expose deployment bandicoot-prod
 kubectl get services -o wide
 
-Burns, Brendan; Beda, Joe; Hightower, Kelsey; Evenson, Lachlan. Kubernetes: Up and Running: Dive into the Future of Infrastructure (p. 128). O'Reilly Media. Kindle Edition. 
+ALPACA_POD=$(kubectl get pods -l app=alpaca -o jsonpath='{.items[0].metadata.name}')
+kubectl port-forward $ALPACA_POD 48858:8080
+http://localhost:48858
