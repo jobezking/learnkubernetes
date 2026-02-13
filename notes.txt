@@ -58,3 +58,6 @@ kubectl exec kuard -- date
 kubectl exec -it kuard -- ash   #get interactive session
 kubectl apply -f kuard-pod-health.yaml
 kubectl port-forward kuard 8080:8080
+
+Of important note is the distinction between MB/GB/PB and MiB/GiB/PiB. The former is the familiar power of two units (e.g., 1 MB == 1,024 KB) 
+while the latter is power of 10 units (1MiB == 1000KiB).
