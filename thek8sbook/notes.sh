@@ -2,6 +2,7 @@ kubectl get nodes
 kubectl config view [--flatten | --minify | --output='json' | --output='yaml']
 kubectl config get-contexts
 kubectl get pods
+kubectl get pods --watch
 kubectl explain pods --recursive | more
 kubectl explain pods.spec.containers
 kubectl explain pods.spec.restartPolicy
@@ -16,4 +17,7 @@ kubectl exec hello-pod -- ls /tmp
 kubectl exec it hello-pod -- sh
 
 kubectl edit pod hello-pod
-kubectl delete pod hello-pod
+kubectl delete pod hello-pod initpod
+kubectl delete svc k8sbook svc-sidecar
+kubectl delete -f pod.yaml
+kubectl delete -f pod.yaml initpod.yaml
