@@ -21,3 +21,6 @@ kubectl delete pod hello-pod initpod
 kubectl delete svc k8sbook svc-sidecar
 kubectl delete -f pod.yaml
 kubectl delete -f pod.yaml initpod.yaml
+
+kubectl api-resources
+kubectl get namespaces
