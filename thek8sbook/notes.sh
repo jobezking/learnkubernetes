@@ -24,3 +24,10 @@ kubectl delete -f pod.yaml initpod.yaml
 
 kubectl api-resources
 kubectl get namespaces
+kubectl describe namespace default # kubectl describe ns default
+kubectl get svc --namespace kube-system
+kubectl get pods --namespace kube-system
+kubectl create ns hydra  # kubectl create namespace hydra 
+kubectl apply -f shield-namespace.yml
+kubectl get ns
+kubectl delete ns hydra
