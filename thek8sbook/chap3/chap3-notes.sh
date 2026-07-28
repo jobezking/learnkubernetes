@@ -1,3 +1,6 @@
+nodes: host servers (physical, virtual or cloud) that run the Kubernetes worker processes and host the pods. Each node contains the services necessary to run pods, 
+including the container runtime, kubelet, and kube-proxy.
+pods: wrap containers and execute on nodes. Is the smallest deployable k8s unit
 kubectl get nodes
 cat /home/[username]/.kube/config
 kubectl config view [--flatten | --minify | --output='json' | --output='yaml']
