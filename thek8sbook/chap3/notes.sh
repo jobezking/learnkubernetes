@@ -34,4 +34,5 @@ kubectl config set-context --current --namespace hydra
 kubectl get pods -n hydra
 kubectl get svc -n hydra
 kubectl delete ns hydra
+kubectl config get-contexts
 kubectl config set-context --current --namespace default
