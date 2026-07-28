@@ -1,6 +1,25 @@
 nodes: host servers (physical, virtual or cloud) that run the Kubernetes worker processes and host the pods. Each node contains the services necessary to run pods, 
 including the container runtime, kubelet, and kube-proxy.
 pods: wrap containers and execute on nodes. Is the smallest deployable k8s unit
+nodeSelectors
+affinity and anti-affinity
+Topology spread constraints
+Resource requests and resource limits
+rules are for scheduling pods to nodes. They can be hard or soft, and can be affinity or anti-affinity.
+affinity rules: attract pods to nodes based on labels and other criteria
+anti-affinity rules: repel pods from nodes based on labels and other criteria
+hard rules: must be satisfied for scheduling to occur
+soft rules: preferred but not required for scheduling to occur
+9 Step Process to Deploy a Pod
+1. Definte pod in yaml manifest file
+2. Post the manifest to the API server using kubectl apply -f <manifest.yaml>
+3. The request is authenticated and authorized by the API server
+4. The pod specification is validated by the API server
+5. The scheduler filters nodes based on nodeSelectors, affinity and anti-affinity rules, topology spread constraints, and resource requests and limits etc.
+6. The pod is assigned to a healthy node meeting all requirements
+7. The kubelet on the node watches API server and notices the pod assignment
+8. The kubelet downloads the pod specification and asks local container runtime to start it
+9. The kubelet monitors the pod and reports status back to the API server
 kubectl get nodes
 cat /home/[username]/.kube/config
 kubectl config view [--flatten | --minify | --output='json' | --output='yaml']
