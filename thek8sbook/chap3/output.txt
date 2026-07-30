@@ -263,4 +263,6 @@ fetch https://dl-cdn.alpinelinux.org/alpine/v3.21/community/x86_64/APKINDEX.tar.
 (9/9) Installing curl (8.14.1-r2)
 Executing busybox-1.37.0-r12.trigger
 OK: 14 MiB in 26 packages
+/src # env | grep HOSTNAME
+HOSTNAME=hello-pod
 /src # exit

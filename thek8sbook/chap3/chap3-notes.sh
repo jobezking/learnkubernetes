@@ -40,6 +40,9 @@ kubectl logtest --container syncer
 kubectl exec hello-pod -- ps
 kubectl exec hello-pod -- ls /tmp
 kubectl exec -it hello-pod -- sh
+apk add curl
+env | grep HOSTNAME
+exit
 
 kubectl edit pod hello-pod
 kubectl delete pod hello-pod initpod
