@@ -37,8 +37,9 @@ kubectl logs
 kubectl logs hello-pod
 kubectl logtest --container syncer
 
+kubectl exec hello-pod -- ps
 kubectl exec hello-pod -- ls /tmp
-kubectl exec it hello-pod -- sh
+kubectl exec -it hello-pod -- sh
 
 kubectl edit pod hello-pod
 kubectl delete pod hello-pod initpod

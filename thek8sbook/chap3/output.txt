@@ -1,0 +1,266 @@
+:~$ kubectl get pods
+NAME        READY   STATUS    RESTARTS   AGE
+hello-pod   1/1     Running   0          4m15s
+
+:~$ kubectl describe pod hello-pod
+Name:             hello-pod
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             desktop-worker/172.18.0.5
+Start Time:       Thu, 30 Jul 2026 01:28:03 -0400
+Labels:           version=v1
+                  zone=prod
+Annotations:      <none>
+Status:           Running
+IP:               10.244.2.2
+IPs:
+  IP:  10.244.2.2
+Containers:
+  hello-ctr:
+    Container ID:   containerd://d93ed3ae5ba33d99aba11c365ea22fa197d1577407cc0a267617085febe56daf
+    Image:          nigelpoulton/k8sbook:1.0
+    Image ID:       docker.io/nigelpoulton/k8sbook@sha256:2209995b11148d3bdf962a9364946cec57d088f831521e0a023085a741a6a1e2
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Thu, 30 Jul 2026 01:29:39 -0400
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     500m
+      memory:  128Mi
+    Requests:
+      cpu:        500m
+      memory:     128Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-8mdh7 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-8mdh7:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Guaranteed
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  5m50s  default-scheduler  Successfully assigned default/hello-pod to desktop-worker
+  Normal  Pulling    5m44s  kubelet            spec.containers{hello-ctr}: Pulling image "nigelpoulton/k8sbook:1.0"
+  Normal  Pulled     4m16s  kubelet            spec.containers{hello-ctr}: Successfully pulled image "nigelpoulton/k8sbook:1.0" in 1m27.836s (1m27.842s including waiting). Image size: 63083036 bytes.
+  Normal  Created    4m15s  kubelet            spec.containers{hello-ctr}: Container created
+  Normal  Started    4m14s  kubelet            spec.containers{hello-ctr}: Container started
+
+
+$ kubectl get pods hello-pod -o yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"labels":{"version":"v1","zone":"prod"},"name":"hello-pod","namespace":"default"},"spec":{"containers":[{"image":"nigelpoulton/k8sbook:1.0","name":"hello-ctr","ports":[{"containerPort":8080}],"resources":{"limits":{"cpu":0.5,"memory":"128Mi"}}}]}}
+  creationTimestamp: "2026-07-30T05:28:02Z"
+  generation: 1
+  labels:
+    version: v1
+    zone: prod
+  name: hello-pod
+  namespace: default
+  resourceVersion: "547246"
+  uid: d5cce1ad-fa7e-4491-a867-b69ef670d2de
+spec:
+  containers:
+  - image: nigelpoulton/k8sbook:1.0
+    imagePullPolicy: IfNotPresent
+    name: hello-ctr
+    ports:
+    - containerPort: 8080
+      protocol: TCP
+    resources:
+      limits:
+        cpu: 500m
+        memory: 128Mi
+      requests:
+        cpu: 500m
+        memory: 128Mi
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-8mdh7
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: desktop-worker
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-8mdh7
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  allocatedResources:
+    cpu: 500m
+    memory: 128Mi
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2026-07-30T05:28:09Z"
+    observedGeneration: 1
+    status: "True"
+    type: PodReadyToStartContainers
+  - lastProbeTime: null
+    lastTransitionTime: "2026-07-30T05:28:03Z"
+    observedGeneration: 1
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2026-07-30T05:29:40Z"
+    observedGeneration: 1
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2026-07-30T05:29:40Z"
+    observedGeneration: 1
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2026-07-30T05:28:02Z"
+    observedGeneration: 1
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - allocatedResources:
+      cpu: 500m
+      memory: 128Mi
+    containerID: containerd://d93ed3ae5ba33d99aba11c365ea22fa197d1577407cc0a267617085febe56daf
+    image: docker.io/nigelpoulton/k8sbook:1.0
+    imageID: docker.io/nigelpoulton/k8sbook@sha256:2209995b11148d3bdf962a9364946cec57d088f831521e0a023085a741a6a1e2
+    lastState: {}
+    name: hello-ctr
+    ready: true
+    resources:
+      limits:
+        cpu: 500m
+        memory: 128Mi
+      requests:
+        cpu: 500m
+        memory: 128Mi
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2026-07-30T05:29:39Z"
+    user:
+      linux:
+        gid: 0
+        supplementalGroups:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 6
+        - 10
+        - 11
+        - 20
+        - 26
+        - 27
+        uid: 0
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-8mdh7
+      readOnly: true
+      recursiveReadOnly: Disabled
+  hostIP: 172.18.0.5
+  hostIPs:
+  - ip: 172.18.0.5
+  observedGeneration: 1
+  phase: Running
+  podIP: 10.244.2.2
+  podIPs:
+  - ip: 10.244.2.2
+  qosClass: Guaranteed
+  resources:
+    limits:
+      cpu: 500m
+      memory: 128Mi
+    requests:
+      cpu: 489m
+      memory: 128Mi
+  startTime: "2026-07-30T05:28:03Z"
+
+crdp@jeking-docker-desktop:~$ kubectl logs
+error: expected 'logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER]'.
+POD or TYPE/NAME is a required argument for the logs command
+See 'kubectl logs -h' for help and examples
+crdp@jeking-docker-desktop:~$ kubectl logs
+error: expected 'logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER]'.
+POD or TYPE/NAME is a required argument for the logs command
+See 'kubectl logs -h' for help and examples
+crdp@jeking-docker-desktop:~$ kubectl logs hello-pod
+crdp@jeking-docker-desktop:~$ kubectl logtest --container syncer
+error: unknown command "logtest" for "kubectl"
+crdp@jeking-docker-desktop:~$ kubectl exec hello-pod -- ps
+PID   USER     TIME  COMMAND
+    1 root      0:00 {MainThread} node ./app.js
+   19 root      0:00 ps
+crdp@jeking-docker-desktop:~$ kubectl exec hello-pod -- ls /tmp
+node-compile-cache
+crdp@jeking-docker-desktop:~$ kubectl exec -it hello-pod -- sh
+/src # apk add curl
+fetch https://dl-cdn.alpinelinux.org/alpine/v3.21/main/x86_64/APKINDEX.tar.gz
+fetch https://dl-cdn.alpinelinux.org/alpine/v3.21/community/x86_64/APKINDEX.tar.gz
+(1/9) Installing brotli-libs (1.1.0-r2)
+(2/9) Installing c-ares (1.34.8-r0)
+(3/9) Installing libunistring (1.2-r0)
+(4/9) Installing libidn2 (2.3.7-r0)
+(5/9) Installing nghttp2-libs (1.69.0-r0)
+(6/9) Installing libpsl (0.21.5-r3)
+(7/9) Installing zstd-libs (1.5.6-r2)
+(8/9) Installing libcurl (8.14.1-r2)
+(9/9) Installing curl (8.14.1-r2)
+Executing busybox-1.37.0-r12.trigger
+OK: 14 MiB in 26 packages
+/src # exit
