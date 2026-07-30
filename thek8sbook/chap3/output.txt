@@ -349,3 +349,8 @@ Events:
 
 $ kubectl apply -f initsvc.yml
 service/k8sbook created
+$ kubectl get pods --watch
+NAME        READY   STATUS            RESTARTS   AGE
+hello-pod   1/1     Running           0          50m
+initpod     0/1     PodInitializing   0          6m58s
+initpod     1/1     Running           0          7m29s
