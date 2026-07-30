@@ -20,6 +20,8 @@ soft rules: preferred but not required for scheduling to occur
 7. The kubelet on the node watches API server and notices the pod assignment
 8. The kubelet downloads the pod specification and asks local container runtime to start it
 9. The kubelet monitors the pod and reports status back to the API server
+resource requests: minimum amount of CPU and memory resources that a pod requires to run. The scheduler uses this information to determine which nodes have enough available resources to accommodate the pod.
+resource limits: maximum amount of CPU and memory resources that a pod can use. The container runtime enforces these limits.
 kubectl get nodes
 cat /home/[username]/.kube/config
 kubectl config view [--flatten | --minify | --output='json' | --output='yaml']
