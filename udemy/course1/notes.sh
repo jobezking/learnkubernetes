@@ -27,3 +27,4 @@ kubernetes.io/docs/tasks/tools
 12. minikube service hello-minikube --url
 13. kubectl delete service hello-minikube --ignore-not-found
 14. kubectl delete deployment hello-minikube
+15. minikube stop
