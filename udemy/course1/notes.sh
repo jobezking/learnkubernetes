@@ -14,3 +14,7 @@ worker nodes: has kubelet, container runtime, and kube-proxy. where (Docker) con
 
 kubernetes.io/docs/tasks/tools
 1. https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+2. install virtualbox command line
+3. https://minikube.sigs.k8s.io/docs/start/?arch=%2Flinux%2Fx86-64%2Fstable%2Fdebian+package
+4. minikube config set driver virtualbox
+5. minikube start
