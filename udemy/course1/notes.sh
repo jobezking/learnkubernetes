@@ -11,3 +11,6 @@ scheduler: distributing work and containers across nodes
 master node: where the control plane components run. has kube-apiserver, etcd, controller-manager, and scheduler. It is responsible for 
     managing the cluster and making global decisions about the cluster (e.g., scheduling). 
 worker nodes: has kubelet, container runtime, and kube-proxy. where (Docker) containers run.
+
+kubernetes.io/docs/tasks/tools
+1. https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
