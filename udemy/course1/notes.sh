@@ -20,6 +20,7 @@ kubernetes.io/docs/tasks/tools
 5. minikube start
 6. minikube status
 7. kubectl get nodes
-8. kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:latest
+8. kubectl create deployment hello-minikube --image=registry.k8s.io/echoserver:1.10
 9. kubectl get deployments
-10. kubectl expose deployment hello-minikube --type=NodePort --port=8080
+10. kubectl get pods
+11. kubectl expose deployment hello-minikube --type=NodePort --port=8080
