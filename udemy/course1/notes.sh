@@ -23,4 +23,7 @@ kubernetes.io/docs/tasks/tools
 8. kubectl create deployment hello-minikube --image=registry.k8s.io/echoserver:1.10
 9. kubectl get deployments
 10. kubectl get pods
-11. kubectl expose deployment hello-minikube --type=NodePort --port=8080
+11. kubectl expose deployment hello-minikube --type=NodePort --port=8080 
+12. minikube service hello-minikube --url
+13. kubectl delete service hello-minikube --ignore-not-found
+14. kubectl delete deployment hello-minikube
