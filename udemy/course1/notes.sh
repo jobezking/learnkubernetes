@@ -28,3 +28,6 @@ kubernetes.io/docs/tasks/tools
 13. kubectl delete service hello-minikube --ignore-not-found
 14. kubectl delete deployment hello-minikube
 15. minikube stop
+
+kubectl run podname --image=imagename   # podname cane be anything. imagename can be any image from dockerhub.
+kubectl run web --image=nginx --port=80 # run pod named web with nginx container and port 80 exposed
