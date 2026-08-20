@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+      app: myapp
+      type: front-end
+spec:
+  containers:  # can have multiple containers in a pod, but for this example we will only have one container
+  - name: myapp-container
+    image: nginx
+    ports:
+    - containerPort: 80
+
+# kubectl create -f pod-definition.yml
