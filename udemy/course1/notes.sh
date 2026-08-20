@@ -41,6 +41,7 @@ kubectl create deployment web --image=nginx # create deployment named web with n
 kubectl get deployments
 kubectl describe deployment web
 kubectl scale deployment web --replicas=3 # scale deployment named web to 3 replicas
+kubectl delete pod web # delete pod named web
 
 # YAML files contain 4 main sections: apiVersion, kind, metadata, and spec and are top level or root level properties and required fields.
 # The apiVersion specifies the version of the Kubernetes API to use for the object.
