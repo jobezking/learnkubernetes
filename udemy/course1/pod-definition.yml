@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: Pod
-metadata:
+metadata:  # can only have fields that are allowed in the metadata section of a pod, such as name and labels
   name: myapp-pod
-  labels:
+  labels:  # can have any fields
       app: myapp
       type: front-end
 spec:
