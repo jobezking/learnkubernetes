@@ -15,6 +15,6 @@ spec:
     image: busybox
     command: ["sh", "-c", "echo Hello from the sidecar container! && sleep 3600"]
 
-    # kubectl create -f pod-example.yml or kubectl apply -f pod-example.yml
+    # kubectl apply -f pod-example.yml (kubectl create -f pod-example.yml requires --save-config flag to be used)
     # kubectl get pods
     # kubectl describe pod nginx-pod
