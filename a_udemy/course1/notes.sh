@@ -66,4 +66,9 @@ kubectl get deployment deployment-name
 kubectl describe deployment deployment-name
 kubectl get all
 #
-#
+# rolling updates is the default deployment strategy in Kubernetes. 
+# It allows you to update your application without downtime by gradually replacing old pods with new ones.
+kubectl rollout status deployment deployment-name
+kubectl rollout history deployment deployment-name
+kubectl set image deployment deployment-name container-name=image:tag
+kubectl set image deployment webserver nginx=nginx:1.9.1
