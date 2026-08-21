@@ -56,3 +56,5 @@ kubectl scale --replicas=4 rs/rs-name
 kubectl scale --replicas=6 -f replica_controller_definition.yml  # will not update file
 kubectl scale --replicas=6 -f replicaset.yml
 kubectl get pods -l type=front-end
+kubectl delete replicationcontroller rc-name
+kubectl delete replicaset rs-name
