@@ -51,3 +51,5 @@ kubectl delete pod web # delete pod named web
 
 kubectl apply -f replica_controller_definition.yml
 kubectl get replicationcontroller or kubectl get rc
+kubectl get replicaset or kubectl get rs
+kubectl get pods -l type=front-end
