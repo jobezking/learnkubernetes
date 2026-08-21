@@ -48,3 +48,6 @@ kubectl delete pod web # delete pod named web
 # The kind specifies the type of object being created (e.g., Pod, Deployment, Service).
 # The metadata section contains information about the object, such as its name and labels.
 # The spec section defines the desired state of the object, including its configuration and behavior.
+
+kubectl apply -f replica_controller_definition.yml
+kubectl get replicationcontroller or kubectl get rc

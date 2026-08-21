@@ -12,10 +12,11 @@ spec:
       name: myapp-pod
       labels:
         app: myapp
-        type: front end
+        type: front-end
     spec:
       containers:
       - name: nginx-container
         image: nginx:latest
 
 # kubectl apply -f replica_controller_definition.yml
+# kubectl get replicationcontroller or kubectl get rc
