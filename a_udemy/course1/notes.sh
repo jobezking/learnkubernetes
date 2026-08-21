@@ -61,5 +61,6 @@ kubectl describe replicaset rs-name
 kubectl edit replicaset rs-name 
 kubectl delete replicationcontroller rc-name
 kubectl delete replicaset rs-name
+kubectl get all
 #
 #

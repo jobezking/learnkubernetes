@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-replicaset
+  labels:
+    app: myapp
+    type: front-end
+spec:
+  replicas: 3
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx:latest
+  selector:
+    matchLabels:
+      type: front-end 
+
+# kubectl apply -f deployment.yml
+# kubectl get deployments
+# kubectl get replicaset
+# kubectl get pods
+# kubectl get pods -l type=front-end
