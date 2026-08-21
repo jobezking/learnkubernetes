@@ -90,3 +90,5 @@ rollback: kubectl rollout undo deployment webserver
      # It allows external traffic to access the service by sending requests to <NodeIP>:<NodePort>.
 # LoadBalancer: This service type creates an external load balancer that distributes traffic across the nodes
 kubectl get services
+kubectl get svc <your-service-name>
+kubectl describe service service-name
