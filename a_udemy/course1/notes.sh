@@ -84,3 +84,8 @@ status:  kubectl rollout status deployment webserver
 history: kubectl rollout history deployment webserver
 rollback: kubectl rollout undo deployment webserver
         
+# Three services in Kubernetes are ClusterIP, NodePort, and LoadBalancer.
+# ClusterIP: The default service type. It exposes the service on a cluster-internal IP. This means that the service is only accessible from within the cluster.
+# NodePort: This service type exposes the service on each node's IP at a static port. 
+     # It allows external traffic to access the service by sending requests to <NodeIP>:<NodePort>.
+# LoadBalancer: This service type creates an external load balancer that distributes traffic across the nodes
