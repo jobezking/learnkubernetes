@@ -58,6 +58,7 @@ kubectl scale --replicas=6 -f replicaset.yml
 kubectl get pods -l type=front-end
 kubectl describe replicationcontroller rc-name
 kubectl describe replicaset rs-name
+kubectl edit replicaset rs-name 
 kubectl delete replicationcontroller rc-name
 kubectl delete replicaset rs-name
 #
