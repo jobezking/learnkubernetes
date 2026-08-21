@@ -79,6 +79,7 @@ create:  kubectl create -f deployment.yaml
 get:     kubectl get deployments
 update:  kubectl apply -f deployment.yaml
          kubectl set image deployment webserver nginx=nginx:1.9.1
+         kubectl edit deployment webserver
 status:  kubectl rollout status deployment webserver
 history: kubectl rollout history deployment webserver
 rollback: kubectl rollout undo deployment webserver
