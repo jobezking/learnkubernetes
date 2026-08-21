@@ -72,3 +72,14 @@ kubectl rollout status deployment deployment-name
 kubectl rollout history deployment deployment-name
 kubectl set image deployment deployment-name container-name=image:tag
 kubectl set image deployment webserver nginx=nginx:1.9.1
+kubectl rollout undo deployment deployment-name
+kubectl rollout undo deployment webserver --to-revision=2
+
+create:  kubectl create -f deployment.yaml
+get:     kubectl get deployments
+update:  kubectl apply -f deployment.yaml
+         kubectl set image deployment webserver nginx=nginx:1.9.1
+status:  kubectl rollout status deployment webserver
+history: kubectl rollout history deployment webserver
+rollback: kubectl rollout undo deployment webserver
+        
