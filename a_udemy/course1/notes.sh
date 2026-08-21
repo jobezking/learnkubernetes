@@ -89,3 +89,4 @@ rollback: kubectl rollout undo deployment webserver
 # NodePort: This service type exposes the service on each node's IP at a static port. 
      # It allows external traffic to access the service by sending requests to <NodeIP>:<NodePort>.
 # LoadBalancer: This service type creates an external load balancer that distributes traffic across the nodes
+kubectl get services

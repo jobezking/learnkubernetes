@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+spec:
+  type: NodePort  # could also be ClusterIP or LoadBalancer
+  ports:
+    - port: 80    # Directs incoming traffic to this port on the service. Only required field                                                                                        
+      targetPort: 80 # service forwards traffic to pods on this port. If not specified, defaults to the value of port
+      nodePort: 30008  # optional, if not specified, Kubernetes will assign one 
+  selector:   # contains the metadata.labels of the pods that the service should forward traffic to
+    app: myapp
+    type: front-end
+
+# kubectl create -f nodeport-service-definition.yml
+# kubectl get services
