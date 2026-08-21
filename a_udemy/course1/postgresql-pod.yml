@@ -11,3 +11,5 @@ spec:
       env:
         - name: POSTGRES_PASSWORD
           value: mysecretpassword
+
+# kubectl apply -f postgresql-pod.yml

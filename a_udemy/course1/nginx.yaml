@@ -11,3 +11,5 @@ spec:
   - name: busybox
     image: busybox:latest
     command: ["sleep", "3600"]
+
+# kubectl apply -f nginx.yml

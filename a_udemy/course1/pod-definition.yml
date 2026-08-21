@@ -19,6 +19,6 @@ spec:
     ports:
     - containerPort: 80
 
-# kubectl create -f pod-definition.yml
+# kubectl apply -f pod-definition.yml
 # kubectl get pods
 # kubectl describe pod myapp-pod  
