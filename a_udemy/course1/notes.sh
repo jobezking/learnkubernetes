@@ -99,3 +99,15 @@ Service ports
               # The service forwards traffic from nodePort to targetPort.
 # port: port exposed by service inside cluster. port on the service. Other pods inside the cluster use to talk to this service.
         # It is the port that the service will listen on and forward traffic to the targetPort of the pod.
+
+Inbound Traffic flow (query)
+End User ➔ nodePort ➔ port ➔ targetPort ➔ MySQL Container
+
+Outbound Traffic flow (response)
+MySQL Container ➔ targetPort ➔ port ➔ nodePort ➔ End User
+
+Pair 1 (External): External Application ➔ nodePort connects the outside world to the physical/virtual Kubernetes Node.
+
+Middleman (Abstraction): port belongs to the Service object—it acts as a virtual traffic cop and load balancer inside the cluster.
+
+Pair 2 (Internal): targetPort ➔ Container delivers the packet directly into the application process inside the Pod.
