@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: back-end
+spec:
+  type: ClusterIP  # could also be NodePort or LoadBalancer. Default is ClusterIP
+  ports:
+    - port: 80    # (Cluster Internal): The port exposed inside the cluster.  
+                # Other pods inside the cluster use this port to talk to this service.
+                  # Only required field                                                                                        
+      targetPort: 80 # (Pod Internal): The actual port your Nginx container is listening on inside the pod. The service forwards traffic from port to targetPort 
+                  # If not specified, defaults to the value of port
+  selector:   # contains the metadata.labels of the pods that the service should forward traffic to
+    app: myapp
+    type: front-end
+
+# kubectl create -f clusterip-service-definition.yml
+# kubectl get services         
