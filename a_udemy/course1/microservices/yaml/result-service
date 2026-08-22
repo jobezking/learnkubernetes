@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: result
+  labels:
+    app: result
+spec:
+  type: NodePort  #external
+  ports:
+  - name: "result-service"
+    port: 8081     # service port that other pods will use to connect to voting-app; service will forward to targetPort
+    targetPort: 80  # port for nodejs container app
+    nodePort: 31001 # tells nodes in k8s cluster what port they should listen on in order to forward traffic to vote-service. 
+                    # external port that browsers connect to
+  selector:
+    app: result

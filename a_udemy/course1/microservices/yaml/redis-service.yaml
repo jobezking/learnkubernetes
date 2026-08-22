@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  labels:
+    app: redis
+spec:
+  type: ClusterIP  #internal only
+  ports:
+  - name: "redis-service"
+    port: 6379            # service port that other pods will use to connect to redis; service will forward to targetPort
+    targetPort: 6379      # port for redis container
+  selector:
+    app: redis

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  labels:
+    app: db
+spec:
+  type: ClusterIP  #internal only
+  ports:
+  - name: "db-service"
+    port: 5432         # service port that other pods will use to connect to db; service will forward to targetPort
+    targetPort: 5432   # port for PostgreSQL container
+  selector:
+    app: db
