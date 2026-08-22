@@ -55,6 +55,8 @@ kubectl apply -f .                      # apply all yaml, yml and json files in 
 kubectl apply -f . -R                   # apply all yaml, yml and json files in a directory and subdirectories
 kubectl apply -f . --dry-run=client     # To see what Kubernetes would apply without making actual changes
 kubectl apply -f replica_controller_definition.yml
+kubectl delete -f .                      # delete all yaml, yml and json files in a directory  
+kubectl delete -f . -R                   # delete all yaml, yml and json files in a directory and subdirectories
 kubectl get replicationcontroller or kubectl get rc
 kubectl get replicaset or kubectl get rs
 kubectl scale rs rs-name--replicas=4 
