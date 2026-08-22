@@ -24,3 +24,4 @@ spec:
         ports:
         - containerPort: 80
           name: vote 
+5. The same services for pods can be used for deployments
