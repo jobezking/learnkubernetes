@@ -25,3 +25,5 @@ spec:
         - containerPort: 80
           name: vote 
 5. The same services for pods can be used for deployments
+6. To scale up or down: 
+kubectl scale deployment vote --replicas=5
