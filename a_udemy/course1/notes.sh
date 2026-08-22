@@ -92,3 +92,10 @@ rollback: kubectl rollout undo deployment webserver
 kubectl get services
 kubectl get svc <your-service-name>
 kubectl describe service service-name
+
+Service ports
+# nodePort: port exposed by container inside pod. It is the port that the service will listen on and forward traffic to the targetPort of the pod.
+# targetPort: port exposed by container inside pod. It is the port that the container inside the pod is listening on. 
+              # The service forwards traffic from nodePort to targetPort.
+# port: port exposed by service inside cluster. port on the service. Other pods inside the cluster use to talk to this service.
+        # It is the port that the service will listen on and forward traffic to the targetPort of the pod.
