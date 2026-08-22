@@ -33,6 +33,8 @@ kubernetes.io/docs/tasks/tools
 # A deployment is a management controller that creates, scales, and updates pods automatically. 
 # While a pod does the actual work, a deployment manages the overall lifecycle and health of those pods
 
+kubectl get node -o wide  # returns node IP and other information about node
+
 kubectl run podname --image=imagename   # podname cane be anything. imagename can be any image from dockerhub.
 kubectl run web --image=nginx --port=80 # run pod named web with nginx container and port 80 exposed
 kubectl get pods
