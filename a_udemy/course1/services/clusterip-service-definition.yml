@@ -5,11 +5,12 @@ metadata:
 spec:
   type: ClusterIP  # could also be NodePort or LoadBalancer. Default is ClusterIP
   ports:
-    - port: 80    # (Cluster Internal): The port exposed inside the cluster.  
-                # Other pods inside the cluster use this port to talk to this service.
+    - port: 80    # (Cluster Internal): The port exposed inside the cluster. Other pods inside the cluster use this port to talk to this service.
                   # Only required field                                                                                        
       targetPort: 80 # (Pod Internal): The actual port your Nginx container is listening on inside the pod. The service forwards traffic from port to targetPort 
                   # If not specified, defaults to the value of port
+      nodePort: 30008  # (External Access): The port opened on every Kubernetes cluster node's external IP address. Use this in your browser for example. 
+                       # If not specified, Kubernetes will automatically assign a port in the range 30000-32767
   selector:   # contains the metadata.labels of the pods that the service should forward traffic to
     app: myapp
     type: front-end
