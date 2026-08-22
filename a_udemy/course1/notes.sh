@@ -49,6 +49,9 @@ kubectl delete pod web # delete pod named web
 # The metadata section contains information about the object, such as its name and labels.
 # The spec section defines the desired state of the object, including its configuration and behavior.
 
+kubectl apply -f .                      # apply all yaml, yml and json files in a directory  
+kubectl apply -f . -R                   # apply all yaml, yml and json files in a directory and subdirectories
+kubectl apply -f . --dry-run=client     # To see what Kubernetes would apply without making actual changes
 kubectl apply -f replica_controller_definition.yml
 kubectl get replicationcontroller or kubectl get rc
 kubectl get replicaset or kubectl get rs
