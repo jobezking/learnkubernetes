@@ -22,3 +22,5 @@ spec:
       type: front-end
 
 #kubectl apply -f replicaset-definition.yml
+#kubectl scale replicaset myapp-replicaset --replicas=5
+#kubectl scale --replicas=5 -f replicaset-definition.yml
