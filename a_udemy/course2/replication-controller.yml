@@ -6,3 +6,16 @@ metadata:
     app: myapp
     type: frontend
 spec:
+  replicas: 3
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx
+
+# kubectl apply -f replication-controller.yml
