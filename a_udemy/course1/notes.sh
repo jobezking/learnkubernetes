@@ -83,6 +83,7 @@ kubectl rollout undo deployment deployment-name
 kubectl rollout undo deployment webserver --to-revision=2
 
 create:  kubectl create -f deployment.yaml
+         kubectl get deployment my-deployment -o yaml > my-deployment.yaml
 get:     kubectl get deployments
 update:  kubectl apply -f deployment.yaml
          kubectl set image deployment webserver nginx=nginx:1.9.1
