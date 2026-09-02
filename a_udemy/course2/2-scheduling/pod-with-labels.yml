@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-webapp
+  labels:
+    app: App1
+    Function: Front-end
+spec:
+  containers:
+    - name: simple-webapp
+      image: nginx:latest
+      ports:
+        - containerPort: 8080
+
+# kubectl get pods --selector app=App1
