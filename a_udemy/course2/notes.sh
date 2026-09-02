@@ -1,5 +1,14 @@
+kubectl get pods  # shows all pods in the default namespace
+kubectl get pods --namespace=kube-system  # shows all pods in the kube-system namespace
 kubectl get pods -n kube-system  # shows kubernetes system pods
-kubectl run nginx --image=nginx
+kubectl create -f pod-definition.yml --namespace=dev # create a pod from a definition file in namespace dev
+kubectl run nginx --image=nginx   # create a pod named nginx with the nginx image
+kubectl run nginx --image=nginx --namespace=dev   # create a pod named nginx with the nginx image in namespace dev
+kubectl get pods --all-namespaces  # shows all pods in all namespaces
+kubectl get pods -o wide  # shows all pods with more details
+kubectl get pods -o yaml  # shows all pods in yaml format
+kubectl get pods -o json  # shows all pods in json format
+kubectl get pods -o name  # shows all pods with only their names
 kubectl scale replicaset myapp-replicaset --replicas=5
 kubectl scale rs myapp-replicaset --replicas=5
 kubectl scale --replicas=5 -f replicaset-definition.yml
