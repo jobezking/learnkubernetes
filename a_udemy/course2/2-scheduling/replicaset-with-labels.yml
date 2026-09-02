@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: simple-webapp
+  labels:            # these labels are used to identify the ReplicaSet
+    app: App1
+    function: Front-end
+spec:
+  replicas: 3
+  selector:
+    matchLabels:    # must match the spec.template.metadata.labels of the pod template
+      app: App1
+  template:
+    metadata:
+      labels:     # must correspond to the spec.selector.matchLabels of the ReplicaSet
+        app: App1
+        function: Front-end
+    spec:
+      containers:
+        - name: simple-webapp-container
+          image: nginx:latest
+          ports:
+            - containerPort: 8080
