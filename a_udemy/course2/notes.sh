@@ -23,6 +23,8 @@ kubectl edit rs myapp-replicaset --save-config  # save the config file to the cl
 kube-system  # for system pods
 default  # for user pods
 kube-public  # for public pods
+kubectl create namespace dev  # create a new namespace called dev
+#namespaces can be defined in the metadata section of pod and other object definitions. If not defined, they will be created in the default namespace.
 
 #Deployments automatically create ReplicaSets with the name of the deployment and create pods including the name of the deployment
 
