@@ -9,6 +9,12 @@ kubectl replace -f replicaset-definition.yml
 kubectl edit [object] [name]  # edit the object in place and also view config file i.e
 kubectl edit rs myapp-replicaset
 kubectl edit rs myapp-replicaset --save-config  # save the config file to the cluster
+
+#Namespaces. K8S creates 3 by default:
+kube-system  # for system pods
+default  # for user pods
+kube-public  # for public pods
+
 #Deployments automatically create ReplicaSets with the name of the deployment and create pods including the name of the deployment
 
 Reference (Bookmark this page for exam. It will be very handy):
