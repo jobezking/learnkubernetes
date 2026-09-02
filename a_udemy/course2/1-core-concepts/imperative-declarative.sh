@@ -1,10 +1,21 @@
 # imperative
+hpa: shortname for Horizontal Pod Autoscaler
 
 # Create objects imperatively using kubectl commands. Imperative commands are used to create, update, and delete resources in Kubernetes.
 kubectl apply -f pod-definition.yml  # create a pod from a definition file
 kubectl run --image=nginx nginx  # create a pod named nginx with the nginx image
+kubectl run redis --image=redis:alpine -l tier=backend # create a pod named redis with the redis:alpine image, label tier=backend
 kubectl create deployment --image=nginx nginx  # create a deployment named nginx with the nginx image
+kubectl create deployment webapp --image=kodekloud/webapp-color --replicas=3 # create a deployment named webapp with the kodekloud/webapp-color image and 3 replicas
 kubectl expose deployment nginx --port=80 --target-port=80 --type=LoadBalancer  # expose the nginx deployment as a service
+kubectl expose pod redis --port=6379 --name=redis-service --type=ClusterIP # expose the redis pod as a service named redis-service of type ClusterIP
+kubectl run custom-nginx --image=nginx --port=8080 # create a pod named custom-nginx with the nginx image and expose port 8080
+kubectl create namespace dev-ns
+kubectl create deployment redis-deploy --image=redis --replicas=2 --namespace=dev-ns
+
+kubectl run httpd --image=httpd:alpine
+kubectl expose pod httpd --port=80 --name=httpd --type=ClusterIP --port=80
+kubectl run httpd --image=httpd:alpine --port=80 --expose  # combines the above two commands into one command
 
 #Update objects imperatively using kubectl commands. Imperative commands are used to create, update, and delete resources in Kubernetes.
 kubectl apply -f pod-definition.yml  # update a pod from a definition file
