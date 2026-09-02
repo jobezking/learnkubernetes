@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+spec:
+  type: LoadBalancer
+  ports:
+   - port: 80          # port running on service. Communicates between service and pod and nodePort
+     targetPort: 80    # port running on the pod i.e. on apache2 container
+     nodePort: 30008     # use with web browser or other external app
+  selector:    # from pod metadata.labels
+    app: myapp
+    type: front-end
+    
