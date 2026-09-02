@@ -16,6 +16,8 @@ kubectl scale --replicas=5 -f replicaset-definition.yml
 kubectl delete rs myapp-replicaset
 kubectl replace -f replicaset-definition.yml
 
+redis-db-service.dev.svc.cluster.local  # access the redis-db-service in the dev namespace from another pod in the same cluster
+
 kubectl edit [object] [name]  # edit the object in place and also view config file i.e
 kubectl edit rs myapp-replicaset
 kubectl edit rs myapp-replicaset --save-config  # save the config file to the cluster
