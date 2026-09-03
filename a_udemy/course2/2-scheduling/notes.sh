@@ -20,3 +20,7 @@ kubectl describe node kubemaster | grep -i taint  # check the taints on the mast
 kubectl taint nodes <node-name> key=value:effect-  # remove the taint from the node
 kubectl taint nodes controlplane node-role.kubernetes.io/control-plane:NoSchedule-   #remove the taint from the controlplane node
 kubectl taint nodes <node-name> node-role.kubernetes.io/master- #remove all taints from the node
+
+# Label node for nodeSelector
+kubectl label nodes <node-name> <label-key>=<label-value>  # label the node with key=size
+kubectl label nodes node01 size=large  # label node01 with key=size and value=large
