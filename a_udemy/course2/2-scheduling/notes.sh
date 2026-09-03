@@ -31,3 +31,7 @@ preferredDuringSchedulingIgnoredDuringExecution:  # pod will be scheduled on nod
                                                    # but if not, it will be scheduled on other nodes
 requiredDuringSchedulingRequiredDuringExecution:  # pod will only be scheduled on nodes that match the affinity rules, 
                                                    # and if the node no longer matches the rules, the pod will be evicted
+# Node affinity operators
+In  # node must have the label with the specified value
+NotIn  # node must not have the label with the specified value
+Exists  # node must have the label, but the value does not matter   
