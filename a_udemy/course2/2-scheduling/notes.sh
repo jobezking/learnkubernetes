@@ -24,3 +24,10 @@ kubectl taint nodes <node-name> node-role.kubernetes.io/master- #remove all tain
 # Label node for nodeSelector
 kubectl label nodes <node-name> <label-key>=<label-value>  # label the node with key=size
 kubectl label nodes node01 size=large  # label node01 with key=size and value=large
+
+#Node affinity types
+requiredDuringSchedulingIgnoredDuringExecution:  # pod will only be scheduled on nodes that match the affinity rules
+preferredDuringSchedulingIgnoredDuringExecution:  # pod will be scheduled on nodes that match the affinity rules if possible, 
+                                                   # but if not, it will be scheduled on other nodes
+requiredDuringSchedulingRequiredDuringExecution:  # pod will only be scheduled on nodes that match the affinity rules, 
+                                                   # and if the node no longer matches the rules, the pod will be evicted
