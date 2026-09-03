@@ -2,6 +2,7 @@ kubectl get pods  # shows all pods in the default namespace
 kubectl get pods --namespace=kube-system  # shows all pods in the kube-system namespace
 kubectl get pods -n kube-system  # shows kubernetes system pods
 kubectl get pods --all-namespaces  # shows all pods in all namespaces
+kubectl get deployment blue -o yaml > blueconfig.yaml
 kubectl create -f pod-definition.yml --namespace=dev # create a pod from a definition file in namespace dev
 kubectl run nginx --image=nginx   # create a pod named nginx with the nginx image
 kubectl run nginx --image=nginx --namespace=dev   # create a pod named nginx with the nginx image in namespace dev

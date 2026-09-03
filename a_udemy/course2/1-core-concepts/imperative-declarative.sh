@@ -6,6 +6,7 @@ kubectl apply -f pod-definition.yml  # create a pod from a definition file
 kubectl run --image=nginx nginx  # create a pod named nginx with the nginx image
 kubectl run redis --image=redis:alpine -l tier=backend # create a pod named redis with the redis:alpine image, label tier=backend
 kubectl create deployment --image=nginx nginx  # create a deployment named nginx with the nginx image
+kubectl create deployment --image=nginx blue --dry-run=client -o yaml > bluedeployment.yaml
 kubectl create deployment webapp --image=kodekloud/webapp-color --replicas=3 # create a deployment named webapp with the kodekloud/webapp-color image and 3 replicas
 kubectl expose deployment nginx --port=80 --target-port=80 --type=LoadBalancer  # expose the nginx deployment as a service
 kubectl expose pod redis --port=6379 --name=redis-service --type=ClusterIP # expose the redis pod as a service named redis-service of type ClusterIP
