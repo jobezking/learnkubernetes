@@ -1,3 +1,4 @@
+kubectl get all -A # shows all resources in all namespaces
 kubectl get pods  # shows all pods in the default namespace
 kubectl get pods --namespace=kube-system  # shows all pods in the kube-system namespace
 kubectl get pods -n kube-system  # shows kubernetes system pods
