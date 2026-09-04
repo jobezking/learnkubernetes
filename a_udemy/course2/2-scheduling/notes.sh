@@ -35,3 +35,7 @@ requiredDuringSchedulingRequiredDuringExecution:  # pod will only be scheduled o
 In  # node must have the label with the specified value
 NotIn  # node must not have the label with the specified value
 Exists  # node must have the label, but the value does not matter   
+
+
+# DaemonSets runs one copy of the pod on each node in the cluster. When a new node is added to the cluster, a copy of the pod is 
+# automatically scheduled on that node. When a node is removed the pod is removed. Ensures that a copy of the pod is running on all nodes in the cluster.
