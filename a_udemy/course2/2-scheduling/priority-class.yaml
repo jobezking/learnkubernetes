@@ -5,3 +5,4 @@ metadata:
 value: 1000000000
 #globalDefault: false
 description: "High priority for critical workloads"
+preemptionPolicy: Never
