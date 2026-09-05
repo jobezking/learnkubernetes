@@ -83,3 +83,7 @@ kubectl create -f nginx-deployment.yaml
 kubectl create deployment --image=nginx nginx --replicas=4 --dry-run=client -o yaml > nginx-deployment.yaml
 kubectl create deployment httpd-frontend --image=httpd:2.4-alpine --replicas=4
 kubectl create deployment httpd-frontend --image=httpd:2.4-alpine --replicas=4 --dry-run=client -o yaml > httpd-frontend-deployment.yaml
+
+kubectl -n webhook-demo create secret tls webhook-server-tls \
+    --cert "/root/keys/webhook-server-tls.crt" \
+    --key "/root/keys/webhook-server-tls.key"
