@@ -44,3 +44,6 @@ Exists  # node must have the label, but the value does not matter
 
 #Create static pod:
 kubectl run --restart=Never --image=busybox static-busybox --dry-run=client -o yaml --command -- sleep 1000 > /etc/kubernetes/manifests/static-busybox.yaml
+
+kubectl get serviceaccount -n kube-system
+kubectl get clusterrolebinding
