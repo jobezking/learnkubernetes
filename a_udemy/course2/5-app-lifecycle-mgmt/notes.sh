@@ -27,6 +27,7 @@ kubectl rollout undo deployment/myapp-deployment  # Rollback to the previous dep
 #IMPERATIVE
 kubectl create configmap <configmap-name> --from-literal=<key>=<value>
 kubectl create configmap appconfig --from-literal=APP_COLOR=green --from-literal=APP_MOD=PROD
+kubectl create configmap webapp-config-map --from-literal=APP_COLOR=darkblue --from-literal=APP_OTHER=disregard
 kubectl create configmap <configmap-name> --from-file=<path-to-file>
 kubectl create configmap app-config --from-file=<app_config.properties>
 kubectl get configmaps
