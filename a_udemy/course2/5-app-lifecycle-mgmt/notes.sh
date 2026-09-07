@@ -42,3 +42,4 @@ kubectl create secret generic app-secret --from-file=<path-to-file>
 kubectl create secret generic app-secret --from-file=app-secrets.properties
 kubectl get secrets
 kubectl describe secret <secret-name>
+kubectl describe secret -o yaml
