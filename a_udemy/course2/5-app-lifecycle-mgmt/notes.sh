@@ -32,3 +32,13 @@ kubectl create configmap <configmap-name> --from-file=<path-to-file>
 kubectl create configmap app-config --from-file=<app_config.properties>
 kubectl get configmaps
 kubectl describe configmap <configmap-name>
+
+# Secret
+echo -n 'mysql.example.com' | base64
+kubectl create secret generic <secret-name> --from-literal=<key>=<value>
+kubectl create secret generic app-secret --from-literal=DB_HOST=mysql.example.com \
+    --from-literal=DB_USER=myuser --from-literal=DB_PASSWORD=mypass
+kubectl create secret generic app-secret --from-file=<path-to-file>
+kubectl create secret generic app-secret --from-file=app-secrets.properties
+kubectl get secrets
+kubectl describe secret <secret-name>
