@@ -3,6 +3,7 @@ kubectl logs [pod-name] --all-containers=true
 kubectl logs [deployment-name] --all-containers=true
 kubectl get all -A # shows all resources in all namespaces
 kubectl get pods  # shows all pods in the default namespace
+kubectl get pods -A --no-headers | wc -l # counts all pods in all namespaces
 kubectl get pods --namespace=kube-system  # shows all pods in the kube-system namespace
 kubectl get pods -n kube-system  # shows kubernetes system pods
 kubectl get pods --all-namespaces  # shows all pods in all namespaces
