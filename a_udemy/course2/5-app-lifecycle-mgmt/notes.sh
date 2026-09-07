@@ -22,3 +22,12 @@ kubectl set image deployment/frontend simple-webapp=kodekloud/webapp-color:v2 # 
 kubectl rollout status deployment/myapp-deployment  # Check the status of a deployment rollout
 kubectl rollout history deployment/myapp-deployment  # Check the rollout history of a deployment
 kubectl rollout undo deployment/myapp-deployment  # Rollback to the previous deployment
+
+#Configmap
+#IMPERATIVE
+kubectl create configmap <configmap-name> --from-literal=<key>=<value>
+kubectl create configmap appconfig --from-literal=APP_COLOR=green --from-literal=APP_MOD=PROD
+kubectl create configmap <configmap-name> --from-file=<path-to-file>
+kubectl create configmap app-config --from-file=<app_config.properties>
+kubectl get configmaps
+kubectl describe configmap <configmap-name>
