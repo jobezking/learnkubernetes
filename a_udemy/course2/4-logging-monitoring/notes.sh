@@ -10,6 +10,8 @@ kubectl top pod
 #pod logs
 kubectl logs <pod-name>
 kubectl logs -f <pod-name>
+kubectl -n elastic-stack logs kibana   # pod is in namespace elastic-stack
+kubectl -n elastic-stack exec -it app -- cat /log/app.log # view logs from a specific container in a pod
 # If there are multiple containers in a pod:
 kubectl logs <pod-name> -c <container-name>
 kubectl logs -f <pod-name> <container-name>
