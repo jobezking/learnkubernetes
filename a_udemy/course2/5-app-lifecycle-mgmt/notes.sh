@@ -43,3 +43,13 @@ kubectl create secret generic app-secret --from-file=app-secrets.properties
 kubectl get secrets
 kubectl describe secret <secret-name>
 kubectl describe secret -o yaml
+
+# Scaling
+# manual
+kubectl top pods
+kubectl top pod my-app
+kubectl scale deployment/my-app --replicas=3
+# automatic
+kubectl autoscale deployment/my-app --min=1 --max=10 --cpu-percent=60  # will create horizontal pod autoscaler (HPA) that polls 
+# metrics server for CPU utilization
+kubectl delete hpa my-app # deletes the horizontal pod autoscaler
