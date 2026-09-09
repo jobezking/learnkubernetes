@@ -72,3 +72,4 @@ kubectl get pods -n kube-system | grep vpa
 kubectl logs -n kube-system deployment/vpa-updater
 
 kubectl describe vpa flask-app
+kubectl get vpa
