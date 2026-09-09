@@ -58,3 +58,9 @@ kubectl delete hpa my-app # deletes the horizontal pod autoscaler
 
 FEATURE_GATES=InPlacePodVerticalScaling=true
 kubectl apply -f https://github.com/kubernetes/kubernetes/autoscaler/releases/latest/download/vertical-pod-autoscaler.yaml
+
+#updateMode values
+Off      # only recommends changes without implementing them
+Initial  #only changes on pod creation and not later
+Recreate  # evicts pods if usage goes beyond range
+Auto      #Updates existing pods to recommended numbers. 
