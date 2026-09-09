@@ -66,3 +66,9 @@ Recreate  # evicts pods if usage goes beyond range
 Auto      #Updates existing pods to recommended numbers. 
 
 kubectl get crds | grep verticalpodautoscaler
+
+kubectl get pods -n kube-system | grep vpa
+
+kubectl logs -n kube-system deployment/vpa-updater
+
+kubectl describe vpa flask-app
