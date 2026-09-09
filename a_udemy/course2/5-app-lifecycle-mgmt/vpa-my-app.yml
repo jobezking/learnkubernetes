@@ -3,7 +3,8 @@ kind: VerticalPodAutoscaler
 metadata:
   name: my-app-vpa
 spec:
-  targetRef: apps/v1
+  targetRef: 
+    apiVersion: apps/v1
     kind: Deployment
     name: my-app
   updatePolicy:
