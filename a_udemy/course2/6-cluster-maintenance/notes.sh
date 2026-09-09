@@ -6,3 +6,4 @@ kubectl get pods -o wide # check where pods are running
 
 # Upgrade k8s one minor version at a time, e.g. 1.25.x -> 1.26.x -> 1.27.x
 # First upgrade master node then upgrade worker nodes
+kubeadm upgrade plan # check for available upgrades
