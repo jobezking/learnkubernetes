@@ -53,3 +53,8 @@ kubectl scale deployment/my-app --replicas=3
 kubectl autoscale deployment/my-app --min=1 --max=10 --cpu-percent=60  # will create horizontal pod autoscaler (HPA) that polls 
 # metrics server for CPU utilization
 kubectl delete hpa my-app # deletes the horizontal pod autoscaler
+
+#Vertical Pod scaling
+
+FEATURE_GATES=InPlacePodVerticalScaling=true
+kubectl apply -f https://github.com/kubernetes/kubernetes/autoscaler/releases/latest/download/vertical-pod-autoscaler.yaml
