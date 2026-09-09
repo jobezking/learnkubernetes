@@ -28,3 +28,32 @@ kubeadm upgrade node config --kubelet-version <version> # upgrade kubelet on the
 sudo systemctl daemon-reload
 sudo systemctl restart kubelet
 kubectl uncordon <node-name> # uncordon the node after upgrade
+
+#On the controlplane node:
+#Use any text editor you prefer to open the file that defines the Kubernetes apt repository.
+
+vim /etc/apt/sources.list.d/kubernetes.list
+#Update the version in the URL to the next available minor release, i.e v1.35.
+
+deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.35/deb/ /
+#After making changes, save the file and exit from your text editor. Proceed with the next instruction.
+
+apt update
+
+apt-cache madison kubeadm
+#Based on the version information displayed by apt-cache madison, it indicates that for Kubernetes version 1.35.0, one of the available package versions is 1.35.0-1.1. Therefore, to install kubeadm for Kubernetes v1.35.0, use the following command:
+
+apt-get install kubeadm=1.35.0-1.1
+#Run the following command to upgrade the Kubernetes cluster.
+
+kubeadm upgrade plan v1.35.0
+kubeadm upgrade apply v1.35.0
+
+#Note that the above steps can take a few minutes to complete.
+#Now, upgrade the Kubelet version. Also, mark the node (in this case, the "controlplane" node) as schedulable.
+
+apt-get install kubelet=1.35.0-1.1
+#Run the following commands to refresh the systemd configuration and apply changes to the Kubelet service:
+
+systemctl daemon-reload
+systemctl restart kubelet
