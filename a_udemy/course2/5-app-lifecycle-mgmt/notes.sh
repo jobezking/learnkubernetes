@@ -64,3 +64,5 @@ Off      # only recommends changes without implementing them
 Initial  #only changes on pod creation and not later
 Recreate  # evicts pods if usage goes beyond range
 Auto      #Updates existing pods to recommended numbers. 
+
+kubectl get crds | grep verticalpodautoscaler
