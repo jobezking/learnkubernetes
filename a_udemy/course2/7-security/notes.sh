@@ -17,6 +17,10 @@ openssl x509 -req -in scheduler.csr -CA ca.crt -CAkey ca.key -out scheduler.crt 
 openssl genrsa -out controller-manager.key 2048                                 # generate a private key for the client
 openssl req -new -key controller-manager.key -subj "/CN=system:kube-controller-manager" -out controller-manager.csr  # certificate signing request
 openssl x509 -req -in controller-manager.csr -CA ca.crt -CAkey ca.key -out controller-manager.crt  # sign the client certificate with the CA using server certificate key
+#kube-proxy
+openssl genrsa -out kube-proxy.key 2048                                 # generate a private key for the client
+openssl req -new -key kube-proxy.key -subj "/CN=system:kube-proxy" -out kube-proxy.csr  # certificate signing request
+openssl x509 -req -in kube-proxy.csr -CA ca.crt -CAkey ca.key -out kube-proxy.crt  # sign the client certificate with the CA using server certificate key
 #apiserver-kubelet-client
 openssl genrsa -out apiserver-kubelet-client.key 2048                                 # generate a private key for the apiserver-kubelet-client
 openssl req -new -key apiserver-kubelet-client.key -subj "/CN=system:apiserver-kubelet-client" -out apiserver-kubelet-client.csr  # certificate signing request
