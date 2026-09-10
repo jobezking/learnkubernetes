@@ -33,3 +33,5 @@ openssl x509 -req -in etcd-client.csr -CA ca.crt -CAkey ca.key -out etcd-client.
 openssl genrsa -out kubelet-client.key 2048                                 # generate a private key for the client
 openssl req -new -key kubelet-client.key -subj "/CN=system:kubelet-client" -out kubelet-client.csr  # certificate signing request
 openssl x509 -req -in kubelet-client.csr -CA ca.crt -CAkey ca.key -out kubelet-client.crt  # sign the client certificate with the CA using server certificate key
+
+curl https://kube-apiserver:6443/api/v1/pods --key admin.key --cert admin.crt --cacert ca.crt
