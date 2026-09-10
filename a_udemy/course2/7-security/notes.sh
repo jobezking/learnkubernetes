@@ -1,5 +1,5 @@
 ## Certificate Authority (CA)
-#Server certificates
+### Server certificates
 # Server certificate for kube-api-server
 openssl genrsa -out ca.key 2048                                     # generate a private key for the CA
 openssl req -new -key ca.key -subj "/CN=KUBERNETES-CA" -out ca.csr  # certificate signing request
@@ -7,7 +7,8 @@ openssl x509 -req -in ca.csr -signkey ca.key -out ca.crt            # self-sign 
 #etcd server
 openssl genrsa -out etcdserver.key 2048  
 openssl req -new -key etcdserver.key subj "/CN=kube-etcdserver" -out etcdserver.csr
-openssl x509 -req -in etcdserver.csr -signkey etcdserver.key -out etcdserver.crt 
+#openssl x509 -req -in etcdserver.csr -signkey etcdserver.key -out etcdserver.crt
+openssl x509 -req -in etcdserver.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out etcdserver.crt
 #kube-api-server
 openssl genrsa -out apiserver.key 2048  
 openssl req -new -key apiserver.key subj "/CN=kube-apiserver" -out apiserver.csr -config openssl.cnf
@@ -15,8 +16,10 @@ openssl x509 -req -in apiserver.csr -CA ca.crt -CAkey ca.key -CAcreateserial -ou
 #kubelet server
 openssl genrsa -out kubeletserver.key 2048  
 openssl req -new -key kubeletserver.key subj "/CN=kubelet-server" -out kubeletserver.csr
-openssl x509 -req -in kubeletserver.csr -signkey kubeletserver.key -out kubeletserver.crt 
-# Client certificates
+#openssl x509 -req -in kubeletserver.csr -signkey kubeletserver.key -out kubeletserver.crt
+openssl x509 -req -in kubeletserver.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out kubeletserver.crt
+
+### Client certificates
 # admin user
 openssl genrsa -out admin.key 2048                                 # generate a private key for the client
 openssl req -new -key admin.key -subj "/CN=kube-admin" -out admin.csr  # certificate signing request
