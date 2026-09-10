@@ -13,11 +13,11 @@ openssl x509 -req -in etcdserver.csr -CA ca.crt -CAkey ca.key -CAcreateserial -o
 openssl genrsa -out apiserver.key 2048  
 openssl req -new -key apiserver.key subj "/CN=kube-apiserver" -out apiserver.csr -config openssl.cnf
 openssl x509 -req -in apiserver.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out apiserver.crt -extensions v3_req -extfile openssl.cnf -days 1000
-#kubelet server
-openssl genrsa -out kubeletserver.key 2048  
-openssl req -new -key kubeletserver.key subj "/CN=kubelet-server" -out kubeletserver.csr
+#kubelet server  create one for each node named after each node i.e. kubelet-node01, server01, kubelet-node02
+openssl genrsa -out kubelet-node.key 2048  
+openssl req -new -key kubelets-node.key subj "/CN=kubelet-node" -out kubelet-node.csr
 #openssl x509 -req -in kubeletserver.csr -signkey kubeletserver.key -out kubeletserver.crt
-openssl x509 -req -in kubeletserver.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out kubeletserver.crt
+openssl x509 -req -in kubelet-node.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out kubelet-node.crt
 
 ### Client certificates
 # admin user
