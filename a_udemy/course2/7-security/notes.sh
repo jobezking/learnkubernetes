@@ -51,3 +51,21 @@ openssl req -new -key kubelet-client.key -subj "/CN=system:kubelet-client" -out 
 openssl x509 -req -in kubelet-client.csr -CA ca.crt -CAkey ca.key -out kubelet-client.crt  # sign the client certificate with the CA using server certificate key
 
 curl https://kube-apiserver:6443/api/v1/pods --key admin.key --cert admin.crt --cacert ca.crt
+
+# To view certificates
+cat /etc/kubernetes/manifests/kube-apiserver.yaml # look for *.crt and *.key files
+openssl x508 -in /etc/kubernetes/pki/apiserver.crt -text -noout # view certificate information
+
+/etc/kuberntes/pki/apiserver.crt
+/etc/kuberntes/pki/apiserver.key
+/etc/kuberntes/pki/ca.crt
+/etc/kuberntes/pki/apiserver-kubelet-client.crt
+/etc/kuberntes/pki/apiserver-kubelet-client.key
+/etc/kuberntes/pki/apiserver-etcd-client.crt
+/etc/kuberntes/pki/apiserver-etcd-client.key
+/etc/kuberntes/pki/ca.crt
+
+journalctl -u etcd.service -l
+
+crictl ps -a  # view containers
+crictl logs [containername] # to view logs
