@@ -11,7 +11,7 @@ openssl x509 -req -in etcdserver.csr -signkey etcdserver.key -out etcdserver.crt
 #kube-api-server
 openssl genrsa -out apiserver.key 2048  
 openssl req -new -key apiserver.key subj "/CN=kube-apiserver" -out apiserver.csr
-openssl x509 -req -in apiserver.csr -signkey apiserver.key -out apiserver.crt 
+openssl x509 -req -in apiserver.csr -signkey apiserver.key -out apiserver.crt -config openssl.cnf
 #kubelet server
 openssl genrsa -out kubeletserver.key 2048  
 openssl req -new -key kubeletserver.key subj "/CN=kubelet-server" -out kubeletserver.csr
