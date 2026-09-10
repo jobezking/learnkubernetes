@@ -1,5 +1,5 @@
 ## Certificate Authority (CA)
-# Server certificates
+# Server certificate for kube-api-server
 openssl genrsa -out ca.key 2048                                     # generate a private key for the CA
 openssl req -new -key ca.key -subj "/CN=KUBERNETES-CA" -out ca.csr  # certificate signing request
 openssl x509 -req -in ca.csr -signkey ca.key -out ca.crt            # self-sign the CA certificate
@@ -17,7 +17,15 @@ openssl x509 -req -in scheduler.csr -CA ca.crt -CAkey ca.key -out scheduler.crt 
 openssl genrsa -out controller-manager.key 2048                                 # generate a private key for the client
 openssl req -new -key controller-manager.key -subj "/CN=system:kube-controller-manager" -out controller-manager.csr  # certificate signing request
 openssl x509 -req -in controller-manager.csr -CA ca.crt -CAkey ca.key -out controller-manager.crt  # sign the client certificate with the CA using server certificate key
-#kube-proxy
-openssl genrsa -out kube-proxy.key 2048                                 # generate a private key for the client
-openssl req -new -key kube-proxy.key -subj "/CN=system:kube-proxy" -out kube-proxy.csr  # certificate signing request
-openssl x509 -req -in kube-proxy.csr -CA ca.crt -CAkey ca.key -out kube-proxy.crt  # sign the client certificate with the CA using server certificate key
+#apiserver-kubelet-client
+openssl genrsa -out apiserver-kubelet-client.key 2048                                 # generate a private key for the apiserver-kubelet-client
+openssl req -new -key apiserver-kubelet-client.key -subj "/CN=system:apiserver-kubelet-client" -out apiserver-kubelet-client.csr  # certificate signing request
+openssl x509 -req -in apiserver-kubelet-client.csr -CA ca.crt -CAkey ca.key -out apiserver-kubelet-client.crt  # sign the client certificate with the CA using server certificate key
+#apiserver-etcd-client
+openssl genrsa -out etcd-client.key 2048                                 # generate a private key for the client
+openssl req -new -key etcd-client.key -subj "/CN=system:etcd-client" -out etcd-client.csr  # certificate signing request
+openssl x509 -req -in etcd-client.csr -CA ca.crt -CAkey ca.key -out etcd-client.crt  # sign the client certificate with the CA using server certificate key
+#kubelet-client
+openssl genrsa -out kubelet-client.key 2048                                 # generate a private key for the client
+openssl req -new -key kubelet-client.key -subj "/CN=system:kubelet-client" -out kubelet-client.csr  # certificate signing request
+openssl x509 -req -in kubelet-client.csr -CA ca.crt -CAkey ca.key -out kubelet-client.crt  # sign the client certificate with the CA using server certificate key
