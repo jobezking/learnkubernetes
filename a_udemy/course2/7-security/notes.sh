@@ -76,6 +76,7 @@ crictl logs [containername] # to view logs
 2. User generates certificate signing request: openssl req -new -key adam.key -subj "/CN=adam" -out adam.csr
 3. cat adam.csr | base64   Contents of key go into adam-cr.yaml
 
+# carried out by kubectl-controller-manager
 kubectl apply -f adam-cr.yaml
 kubectl get csr
 kubectl certificate approve adam-csr
