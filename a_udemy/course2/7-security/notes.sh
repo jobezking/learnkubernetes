@@ -77,7 +77,9 @@ crictl logs [containername] # to view logs
 3. cat adam.csr | base64 -w 0  #Contents of key go into adam-cr.yaml
 
 # carried out by kubectl-controller-manager
-kubectl apply -f adam-cr.yaml
+kubectl apply -f adam-csr.yaml
 kubectl get csr
 kubectl certificate approve adam-csr
+kubectl certificate deny <username>
+kubectl delete csr <username>
 kubectl get csr adam -o yaml
