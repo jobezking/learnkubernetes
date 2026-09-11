@@ -83,3 +83,9 @@ kubectl certificate approve adam-csr
 kubectl certificate deny <username>
 kubectl delete csr <username>
 kubectl get csr adam -o yaml
+
+
+kubectl config view
+kubectl config view -kubeconfig=<config file>
+kubectl config use-context <context-name>
+kubectl config -h
