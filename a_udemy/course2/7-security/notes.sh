@@ -84,8 +84,11 @@ kubectl certificate deny <username>
 kubectl delete csr <username>
 kubectl get csr adam -o yaml
 
-
+#kubeconfig
 kubectl config view
 kubectl config view -kubeconfig=<config file>
 kubectl config use-context <context-name>
+kubectl config --kubeconfig=/root/my-kube-config use-context research
 kubectl config -h
+
+export KUBECONFIG=$HOME/my-kube-config
