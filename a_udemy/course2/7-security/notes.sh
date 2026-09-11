@@ -75,3 +75,8 @@ crictl logs [containername] # to view logs
 1. User generates certificate:  openssl genrsa -out adam.key 2048
 2. User generates certificate signing request: openssl req -new -key adam.key -subj "/CN=adam" -out adam.csr
 3. cat adam.csr | base64   Contents of key go into adam-cr.yaml
+
+kubectl apply -f adam-cr.yaml
+kubectl get csr
+kubectl certificate approve adam-csr
+kubectl get csr adam -o yaml
