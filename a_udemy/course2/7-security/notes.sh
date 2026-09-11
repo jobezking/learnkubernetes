@@ -69,3 +69,9 @@ journalctl -u etcd.service -l
 
 crictl ps -a  # view containers
 crictl logs [containername] # to view logs
+
+
+#Provision user certificate process.
+1. User generates certificate:  openssl genrsa -out adam.key 2048
+2. User generates certificate signing request: openssl req -new -key adam.key -subj "/CN=adam" -out adam.csr
+3. cat adam.csr | base64   Contents of key go into adam-cr.yaml
