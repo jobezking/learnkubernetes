@@ -147,3 +147,5 @@ kubectl create secret docker-registry regcred --docker-server=private-registry.i
 
 #network policies
 kubectl get networkpolicy
+# Custom resource definition
+kubectl describe crd collectors.monitoring.controller
