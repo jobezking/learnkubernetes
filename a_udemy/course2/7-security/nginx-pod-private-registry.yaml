@@ -3,6 +3,8 @@ kind: Pod
 metadata:
   name: nginx-pod
 spec:
+  imagePullSecrets:
+  - name: private-registry-cred
   containers:
   - name: nginx
     image: private-registry.io/apps/internal-app
