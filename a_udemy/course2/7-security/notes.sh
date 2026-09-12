@@ -99,10 +99,15 @@ kubectl proxy   # authenticates for API requests
 curl http://localhost:8001 -k  # shows objects that you can run curl requests against i.e. /api, /healthz etc
 
 # Authorization/Access commands
+cat /etc/kubernetes/manifests/kube-apiserver.yaml
+ps -aux | grep authorization
 kubectl describe pod kube-apiserver-controlplane -n kube-system
 kubectl get roles [--namespace=]
+kubectl get rolebindings [--namespace=]
+kubectl config view
 kubectl describe role kube-proxy -n kube-system
 kubectl get pods --as dev-user
+kubernetes create role --help
 kubectl create role developer --namespace=default --verb=list,create,delete --resource=pods
 kubectl create rolebinding dev-user-binding --namespace=default --role=developer --user=dev-user
 kubectl auth can-i create deployments
