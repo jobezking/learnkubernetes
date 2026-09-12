@@ -97,3 +97,10 @@ curl https://kube-master:6443/version
 curl https://kube-master:6443/api/v1/pods
 kubectl proxy   # authenticates for API requests
 curl http://localhost:8001 -k  # shows objects that you can run curl requests against i.e. /api, /healthz etc
+
+# Authorization/Access commands
+kubectl auth can-i create deployments
+kubectl auth can-i delete nodes
+kubectl auth can-i create deployments --as dev-user
+kubectl auth can-i create pods --as dev-user
+kubectl auth can-i create pods --as dev-user --namespace test
