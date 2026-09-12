@@ -122,9 +122,15 @@ kubectl auth can-i create pods --as dev-user --namespace test
 cluster admin  #view, create, delete nodes
 storage admin  #view, create, delete PVs (persistent volumes)
 #service accounts
+# Every namespace has default service account which is automatically attached to pods on their creation
 # service account gets mounted at a projected volume in pod 
+kubectl get pods -o yaml | grep serviceAccountName
 kubectl get serviceaccount
 kubectl describe serviceaccount default       # default k8s svc accnt
 kubectl describe pod my-kubernetes-dashboard | grep -i 'Service Account'
 kubectl exec -it my-kubernetes-dashboard ls /var/run/secrets/kubernetes.io/serviceaccount
 kubectl create serviceaccount dashboard-sa
+# to associate service account with a pod, use field serviceAccountName in pod's spec field i.e. spec.serviceAccountName
+# if you do not want the token mounted in a pod, you can use the field automountServiceAccountToken: false either in the service
+# account definition or the pods spec definition
+kubectl create token dashboard-sa --duration 2h # create token whose output can be used in application calls to kubernetes API
