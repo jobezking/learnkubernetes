@@ -9,3 +9,7 @@ docker run -it --name mysql --mount src=ebs-vol,target=/var/lib/mysql mysql  # u
 # Kubernetes volumes
 # need to attach volumes to pods for data processed by pod to be preserved when pod is destroyed
 # persistent volumes: cluster-wide storage. access modes are ReadOnlyMany, ReadWriteOnce, ReadWriteMany
+# persistent volume claim: each PVC is bound to a single PV
+kubectl get persistentvolume
+kubectl get persistentvolumeclaim
+kubectl delete persistentvolumeclaim
