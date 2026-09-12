@@ -134,3 +134,5 @@ kubectl create serviceaccount dashboard-sa
 # if you do not want the token mounted in a pod, you can use the field automountServiceAccountToken: false either in the service
 # account definition or the pods spec definition
 kubectl create token dashboard-sa --duration 2h # create token whose output can be used in application calls to kubernetes API
+# Verify the token is mounted at the expected path:
+kubectl exec $(kubectl get pod -l name=web-dashboard -o jsonpath='{.items[0].metadata.name}') -- ls /var/run/secrets/kubernetes.io/serviceaccount/
