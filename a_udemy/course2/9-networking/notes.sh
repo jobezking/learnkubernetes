@@ -1,0 +1,1 @@
+ip link  #brief view of network interfaces
