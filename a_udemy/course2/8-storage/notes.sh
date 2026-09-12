@@ -13,3 +13,6 @@ docker run -it --name mysql --mount src=ebs-vol,target=/var/lib/mysql mysql  # u
 kubectl get persistentvolume
 kubectl get persistentvolumeclaim
 kubectl delete persistentvolumeclaim
+
+kubectl exec podname -- cat filename
+kubectl exec webapp -- cat /log/app.log
