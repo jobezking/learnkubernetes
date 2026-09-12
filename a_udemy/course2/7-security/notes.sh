@@ -121,3 +121,10 @@ kubectl auth can-i create pods --as dev-user --namespace test
 # clusterroles. Below are examples. Roles are defined.
 cluster admin  #view, create, delete nodes
 storage admin  #view, create, delete PVs (persistent volumes)
+#service accounts
+# service account gets mounted at a projected volume in pod 
+kubectl get serviceaccount
+kubectl describe serviceaccount default       # default k8s svc accnt
+kubectl describe pod my-kubernetes-dashboard | grep -i 'Service Account'
+kubectl exec -it my-kubernetes-dashboard ls /var/run/secrets/kubernetes.io/serviceaccount
+kubectl create serviceaccount dashboard-sa
