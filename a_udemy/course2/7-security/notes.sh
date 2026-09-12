@@ -105,6 +105,9 @@ kubectl describe pod kube-apiserver-controlplane -n kube-system
 kubectl get roles [--namespace=]
 kubectl get rolebindings [--namespace=]
 kubectl config view
+# Roles and Rolebindings are namespace-scoped. Resources are either namespaced or cluster-scoped
+kubectl api-resources --namespaced=true
+kubectl api-resources --namespaced=false
 kubectl describe role kube-proxy -n kube-system
 kubectl get pods --as dev-user
 kubernetes create role --help
@@ -115,3 +118,6 @@ kubectl auth can-i delete nodes
 kubectl auth can-i create deployments --as dev-user
 kubectl auth can-i create pods --as dev-user
 kubectl auth can-i create pods --as dev-user --namespace test
+# clusterroles. Below are examples. Roles are defined.
+cluster admin  #view, create, delete nodes
+storage admin  #view, create, delete PVs (persistent volumes)
