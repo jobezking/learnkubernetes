@@ -90,5 +90,10 @@ kubectl config view -kubeconfig=<config file>
 kubectl config use-context <context-name>
 kubectl config --kubeconfig=/root/my-kube-config use-context research
 kubectl config -h
-
 export KUBECONFIG=$HOME/my-kube-config
+
+#APIs
+curl https://kube-master:6443/version
+curl https://kube-master:6443/api/v1/pods
+kubectl proxy   # authenticates for API requests
+curl http://localhost:8001 -k  # shows objects that you can run curl requests against i.e. /api, /healthz etc
