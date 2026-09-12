@@ -136,3 +136,11 @@ kubectl create serviceaccount dashboard-sa
 kubectl create token dashboard-sa --duration 2h # create token whose output can be used in application calls to kubernetes API
 # Verify the token is mounted at the expected path:
 kubectl exec $(kubectl get pod -l name=web-dashboard -o jsonpath='{.items[0].metadata.name}') -- ls /var/run/secrets/kubernetes.io/serviceaccount/
+
+#private registries
+docker login private-registry.io
+docker run private-registry.io/apps/internal-app
+kubectl create secret docker-registry regcred --docker-server=private-registry.io \
+--docker-username=registry-user \
+--docker-password=registry-password \
+--docker-email=registry-user@org.com
