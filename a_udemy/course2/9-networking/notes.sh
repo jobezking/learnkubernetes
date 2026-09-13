@@ -14,3 +14,6 @@ CNAME: mapping one DNS name to another
 ping
 nslookup
 dig
+# network namespaces: create 2, one named red and the other blue
+ip netns add red
+ip netns add blue
