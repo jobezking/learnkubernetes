@@ -33,3 +33,7 @@ ls /etc/cni/net.d/
 
 kubectl get service
 iptables -L -t nat | grep servicename
+
+# CoreDNS
+cat /etc/coredns/Corefile 
+kubectl get configmap -n kube-system
