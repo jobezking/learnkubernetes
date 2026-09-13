@@ -48,3 +48,13 @@ ip -n blue link set veth-blue up
 ip addr add 192.168.15.5/24 dev v-net-0  # add connectivity from host to virtual switch
 
 docker network ls
+
+Important Note about CNI and CKA Exam
+An important tip about deploying Network Addons in a Kubernetes cluster.
+
+In the upcoming labs, we will work with Network Addons. This includes installing a network plugin in the cluster. 
+While we have used weave-net as an example, please bear in mind that you can use any of the plugins which are described here:
+
+https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+https://kubernetes.io/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model
