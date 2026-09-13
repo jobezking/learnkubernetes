@@ -1,3 +1,6 @@
+cni0: containerd ethernet interface
+docker0: Docker ethernet interface
+
 Kubernetes networking requirement
 Each node must be connected to network.
 Internet interface i.e. eth0 with IP address configured
