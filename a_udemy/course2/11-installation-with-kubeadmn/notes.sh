@@ -5,3 +5,8 @@
 4. Initialize the master server.
 5. Install pod network on all 3 servers
 6. Join the worker nodes to the master.
+
+The vagrant file used in the next video is available here:
+https://github.com/kodekloudhub/certified-kubernetes-administrator-course
+Here's the link to the documentation:
+https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
