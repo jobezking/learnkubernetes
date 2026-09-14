@@ -40,3 +40,4 @@ kubectl get configmap -n kube-system
 cat /var/lib/kubelet/config.yaml
 
 kubectl get ingress
+kubectl describe ingress ingress-wear-watch

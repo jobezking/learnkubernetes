@@ -4,6 +4,7 @@ metadata:
   name: ingress-wear-watch
 spec:
   rules:
+  - host: wear.my-online-store.com
   - http:
       paths:
       - path: /wear
@@ -11,6 +12,7 @@ spec:
           service:
             name: wear-service
             port: 80
+      - host: watch.my-online-store.com
       - path: /watch
         backend: 
           service:
