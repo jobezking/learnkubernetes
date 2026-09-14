@@ -24,6 +24,8 @@ cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
 net.ipv4.ip_forward = 1
 EOF
 sudo sysctl --system
+sudo modprobe br_netfilter
+echo "br_netfilter" | sudo tee /etc/modules-load.d/k8s.conf
 
 # Initialize Control Plane Node. The advertised address comes from the primary interface from "ip addr" or "ip a"
 sudo kubeadm init --apiserver-advertise-address 192.168.1.161 --pod-network-cidr "10.244.0.0/16" --upload-certs
@@ -31,9 +33,11 @@ mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 # save this output to run on worker nodes:
-kubeadm join 192.168.1.161:6443 --token i7v2dr.f724aps14od4a34x \
-       --discovery-token-ca-cert-hash sha256:<hash>
+kubeadm join 192.168.1.161:6443 --token <token> --discovery-token-ca-cert-hash sha256:<hash>
 To test: kubectl get nodes
 # add flannel networking
 # If you use custom podCIDR (not 10.244.0.0/16) you first need to download the YAML below and modify the network to match your one.
 kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+
+# On worker nodes
+sudo kubeadm join 192.168.1.161:6443 --token <token> --discovery-token-ca-cert-hash sha256:<hash>
