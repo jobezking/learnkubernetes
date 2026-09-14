@@ -37,3 +37,4 @@ iptables -L -t nat | grep servicename
 # CoreDNS
 cat /etc/coredns/Corefile 
 kubectl get configmap -n kube-system
+cat /var/lib/kubelet/config.yaml
