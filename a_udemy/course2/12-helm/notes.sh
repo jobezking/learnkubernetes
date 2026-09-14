@@ -27,3 +27,11 @@ chart-directory
 .. Chart.yaml
 .. LICENSE
 .. README.md
+
+helm --help
+helm repo --help
+helm search hub wordpress  # all repositories are listed
+helm search repo wordpress
+
+helm repo add bitnami https://charts.bitnami.com/bitnami
+help install my-release bitnami/wordpress
