@@ -41,6 +41,7 @@ cat /var/lib/kubelet/config.yaml
 
 kubectl get ingress
 kubectl describe ingress ingress-wear-watch
+kubectl get deployment ingress-nginx-controller -n ingress-nginx -o yaml
 
 in k8s version 1.20+ we can create an Ingress resource from the imperative way like this:-
 
