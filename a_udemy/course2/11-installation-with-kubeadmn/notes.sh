@@ -32,12 +32,11 @@ sudo kubeadm init --apiserver-advertise-address 192.168.1.161 --pod-network-cidr
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
-# save this output to run on worker nodes:
-kubeadm join 192.168.1.161:6443 --token <token> --discovery-token-ca-cert-hash sha256:<hash>
 To test: kubectl get nodes
 # add flannel networking
 # If you use custom podCIDR (not 10.244.0.0/16) you first need to download the YAML below and modify the network to match your one.
 kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+sudo kubeadm token create --print-join-command  # provides command used to run on worker nodes
 
 # On worker nodes
-sudo kubeadm join 192.168.1.161:6443 --token <token> --discovery-token-ca-cert-hash sha256:<hash>
+sudo kubeadm join 192.168.1.161:6443 --token <token> --discovery-token-ca-cert-hash sha256:<hash> from output above
