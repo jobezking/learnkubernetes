@@ -38,7 +38,7 @@ net.bridge.bridge-nf-call-ip6tables = 1
 net.ipv4.ip_forward                 = 1
 EOF
 
-sudo sysctl --system
+sudo sysctl --system; sudo systemctl restart containerd
 
 # Initialize Control Plane Node. The advertised address comes from the primary interface from "ip addr" or "ip a"
 sudo kubeadm init --apiserver-advertise-address 192.168.1.161 --pod-network-cidr "10.244.0.0/16" --upload-certs
