@@ -14,6 +14,7 @@ echo "deb [signed-by=/usr/share/keyrings/helm.gpg] https://packages.buildkite.co
 
 sudo apt-get update
 sudo apt-get install helm -y
+values.yaml
 
 ###
 # artifacthub.io
@@ -39,3 +40,18 @@ helm search repo wordpress
 
 helm repo add bitnami https://charts.bitnami.com/bitnami
 help install my-release bitnami/wordpress
+# To customize:
+helm install --set wordpressBlogName="Helm Tutorials" --set wordpressEmail="john@example.com" my-release bitnami/wordpress
+#OR create custom-values.yaml
+wordpressBlogName: Helm Tutorials
+wordpressEmail: john@example.com
+helm install --values=custom-values.yaml my-release bitnami/wordpress
+
+# More complicated:
+helm pull bitnami/wordpress
+OR
+helm pull --untar bitnami/wordpress
+cd wordpress
+kate values.yaml  # then edit
+cd ..
+helm install my-release ./wordpress
