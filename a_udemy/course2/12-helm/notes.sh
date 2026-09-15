@@ -34,11 +34,11 @@ helm repo --help
 # Install app with helm
 1. search for app in repositories. The first is preferred. Or use artifacthub.io
 helm search hub wordpress  # all repositories are listed
-helm search repo wordpress
 
 # Note this among the results: https://artifacthub.io/packages/helm/bitnami/wo...
 
 helm repo add bitnami https://charts.bitnami.com/bitnami
+helm search repo wordpress  # searches only installed repo(s)
 help install my-release bitnami/wordpress
 # To customize:
 helm install --set wordpressBlogName="Helm Tutorials" --set wordpressEmail="john@example.com" my-release bitnami/wordpress
