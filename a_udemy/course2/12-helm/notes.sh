@@ -57,5 +57,7 @@ kate values.yaml  # then edit
 cd ..
 helm install my-release ./wordpress
 
-# Remove
+# Remove chart
 helm uninstall my-release
+# Remove repo
+helm repo remove hashicorp
