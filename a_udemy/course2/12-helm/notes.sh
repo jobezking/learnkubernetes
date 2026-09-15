@@ -38,6 +38,7 @@ helm search hub wordpress  # all repositories are listed
 # Note this among the results: https://artifacthub.io/packages/helm/bitnami/wo...
 
 helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo list
 helm search repo wordpress  # searches only installed repo(s)
 help install my-release bitnami/wordpress
 # To customize:
