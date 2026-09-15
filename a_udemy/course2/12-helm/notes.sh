@@ -56,3 +56,6 @@ cd wordpress
 kate values.yaml  # then edit
 cd ..
 helm install my-release ./wordpress
+
+# Remove
+helm uninstall my-release
