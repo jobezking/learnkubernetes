@@ -20,12 +20,26 @@ sudo apt install -y containerd
 sudo mkdir -p /etc/containerd
 containerd config default | sed 's/SystemdCgroup = false/SystemdCgroup = true/' | sudo tee /etc/containerd/config.toml
 sudo systemctl restart containerd
-cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
-net.ipv4.ip_forward = 1
+
+sudo swapoff -a
+# Permanently disable swap by commenting out any swap line in /etc/fstab:
+sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+
+cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
 EOF
-sudo sysctl --system
+
+sudo modprobe overlay
 sudo modprobe br_netfilter
-echo "br_netfilter" | sudo tee /etc/modules-load.d/k8s.conf
+
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward                 = 1
+EOF
+
+sudo sysctl --system
 
 # Initialize Control Plane Node. The advertised address comes from the primary interface from "ip addr" or "ip a"
 sudo kubeadm init --apiserver-advertise-address 192.168.1.161 --pod-network-cidr "10.244.0.0/16" --upload-certs
