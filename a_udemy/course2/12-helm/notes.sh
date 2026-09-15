@@ -61,3 +61,10 @@ helm install my-release ./wordpress
 helm uninstall my-release
 # Remove repo
 helm repo remove hashicorp
+
+#Lifecycle example.
+1. Install old version: helm install nginx-release bitnami/nginx --version 7.1.0
+2. find current version
+kubectl get pods | grep nginx-release   # the pod names will include the release name
+kubectl describe pod nginx-release-3c3s3-daea4
+3. Upgrade: helm upgrade nginx-release bitnami/nginx
