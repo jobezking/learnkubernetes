@@ -68,3 +68,8 @@ helm repo remove hashicorp
 kubectl get pods | grep nginx-release   # the pod names will include the release name
 kubectl describe pod nginx-release-3c3s3-daea4
 3. Upgrade: helm upgrade nginx-release bitnami/nginx
+kubectl get pods | grep nginx-release   # the pod names will include the release name
+kubectl describe pod nginx-release-5c6qq-z6gc4
+4. show current version number: helm list
+5. show release history: helm history nginx-release
+6. roll back to previous version: helm rollback nginx-release 1  # creates new revision that is the same as revision 1
