@@ -16,3 +16,4 @@ kustomize build k8s_configs/ | kubectl apply -f
 
 # To delete
 kustomize build k8s_configs/ | kubectl delete -f
+
