@@ -31,3 +31,21 @@ resources:
   - kafka  
 
 kubectl apply -k yamldirectory  # alternative to kustomize build yamldirectory | kubectl apply -f
+
+# Common Transformations
+commonLabel: adds a label to all k8s resources
+namePrefix: adds a common prefix to all resource names
+nameSuffix: adds a common suffix to all resource names
+Namespace: adds a common namespace to all resources
+commonAnnotations: adds an annotation to all resources
+
+commonLabels:
+  org: KodeKloud
+
+namespace: lab
+
+namePrefix: KodeKloud-
+nameSuffix: -dev
+
+commonAnnotations:
+  branch: master
