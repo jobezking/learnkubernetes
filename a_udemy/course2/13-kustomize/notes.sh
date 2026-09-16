@@ -29,3 +29,5 @@ resources:
   - db
   - cache 
   - kafka  
+
+kubectl apply -k yamldirectory  # alternative to kustomize build yamldirectory | kubectl apply -f
