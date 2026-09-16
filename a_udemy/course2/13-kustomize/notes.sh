@@ -17,3 +17,15 @@ kustomize build k8s_configs/ | kubectl apply -f
 # To delete
 kustomize build k8s_configs/ | kubectl delete -f
 
+# kustomize build is has no recursive option to read subfolders. To handle subfolders place kustomization.yaml in top folder
+# inside kustomization yaml explicitly specify using paths relative o kustomization.yaml all of the yaml files that will be processed i.e.
+resources:
+  - api/api-depl.yaml
+  - db/db-depl.yaml
+# Or you can put a kustomization.yaml file in every subdirectory that refers to all the managed files in the directory. 
+# The root directory kustomization.yaml file then merely needs to refer to all the subdirectories:
+resources:
+  - api 
+  - db
+  - cache 
+  - kafka  
