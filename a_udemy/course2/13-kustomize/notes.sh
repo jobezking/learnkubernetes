@@ -79,3 +79,13 @@ patches:
         - op: replace
           path: /metadata/name
           value: web-deployment
+
+
+  - target:
+      kind: Deployment
+      name: api-deployment
+
+      patch: |-
+        - op: replace
+          path: /spec/replicas
+          value: 5
