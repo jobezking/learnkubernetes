@@ -65,3 +65,17 @@ images:
   - name: nginx
     newName: haproxy
     newTag: "2.4"
+
+# Patches  Require 3 values: 
+# operation type (add/remove/replace), target (kind, version/group, Name, Namespace, labelSelector, AnnotationSelector), Value (only for add/replace)
+
+
+patches:
+  - target:
+      kind: Deployment
+      name: api-deployment
+
+      patch: |-
+        - op: replace
+          path: /metadata/name
+          value: web-deployment
