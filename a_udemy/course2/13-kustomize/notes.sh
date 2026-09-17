@@ -89,3 +89,23 @@ patches:
         - op: replace
           path: /spec/replicas
           value: 5
+
+# JSON 6902 Patch
+patches:
+  - target:
+      kind: Deployment
+      name: api-Deployment
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 5
+
+# Strategic merge patch is as if you are performing a regular k8s config
+patches:
+  - patch: |-
+    apiVersion: apps/v1
+    kind: Deployment'
+    metadata:
+      name: api-deployment
+    spec:
+      replicas: 5
