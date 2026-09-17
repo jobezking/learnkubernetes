@@ -58,10 +58,10 @@ images:
 # To add tag:
 images:
   - name: nginx
-    newTag: 2.4
+    newTag: "2.4"
 
 # Can be combined:
 images:
   - name: nginx
     newName: haproxy
-    newTag: 2.4
+    newTag: "2.4"
