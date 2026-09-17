@@ -25,3 +25,7 @@ kubectl logs kube-apiserver-master -n kube-system  # if kubeadm deployed pod
 sudo journalctl -u kube-apiserver # if deployed as service
 https://kubernetes.io/docs/tasks/debug/debug-cluster
 
+ls -l /etc/kubernetes/manifests 
+
+# worker node troubleshooting
+kubectl get nodes
