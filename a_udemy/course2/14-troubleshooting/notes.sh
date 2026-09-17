@@ -30,3 +30,10 @@ ls -l /etc/kubernetes/manifests
 # worker node troubleshooting
 kubectl get nodes
 kubectl describe node node01
+ssh node01 
+top; df -h # linux troubleshooting etc.
+sudo get pods -A
+sudo systemctl status kubelet
+sudo journalctl -u kubelet
+# check certificates
+openssl x509 -in /var/lib/kubelet/node01.crt -text
