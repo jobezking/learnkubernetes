@@ -49,3 +49,19 @@ nameSuffix: -dev
 
 commonAnnotations:
   branch: master
+
+# Image Transformer. Below is isleading as it replaces the image - spec.containers.image - not spec.containers.name
+images:
+  - name: nginx
+    newName: haproxy
+
+# To add tag:
+images:
+  - name: nginx
+    newTag: 2.4
+
+# Can be combined:
+images:
+  - name: nginx
+    newName: haproxy
+    newTag: 2.4
