@@ -29,3 +29,4 @@ ls -l /etc/kubernetes/manifests
 
 # worker node troubleshooting
 kubectl get nodes
+kubectl describe node node01
