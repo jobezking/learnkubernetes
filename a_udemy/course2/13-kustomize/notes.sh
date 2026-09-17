@@ -69,7 +69,7 @@ images:
 # Patches  Require 3 values: 
 # operation type (add/remove/replace), target (kind, version/group, Name, Namespace, labelSelector, AnnotationSelector), Value (only for add/replace)
 
-
+# JSON 6902 Patch
 patches:
   - target:
       kind: Deployment
@@ -90,7 +90,6 @@ patches:
           path: /spec/replicas
           value: 5
 
-# JSON 6902 Patch
 patches:
   - target:
       kind: Deployment
@@ -109,3 +108,15 @@ patches:
       name: api-deployment
     spec:
       replicas: 5
+
+# You can also do a separate file
+patches:
+  - path: replica-patch.yaml
+    target: 
+      kind: Deployment
+      name: nginx-deployment
+
+# replica-patch.yaml
+- op: replace
+  path: /spec/replicas
+  value: 5
