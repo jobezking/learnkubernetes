@@ -49,6 +49,8 @@ for ip in 10.244.0.5 10.244.0.6 10.244.0.7; do wget -qO- $ip:9376; done  # perfo
 kubectl get svc hostnames -o yaml
 kubectl get endpointslices -l kubernetes.io/service-name=hostnames -n default # returns all IP addresses for services that name
 # CoreDNS troubleshooting
+ls -la /etc/cni/net.d/  # check coredns configuration directory
+journalctl -u kubelet | grep -i cni | tail -10  # check coredns logs
 kubectl get pods --namespace=kube-system -l k8s-app=kube-dns
 kubectl get endpointslices -l kubernetes.io/service-name=kube-dnss -n kube-system
 kubectl exec -it podname -- cat /etc/resolv.conf
