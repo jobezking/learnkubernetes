@@ -54,3 +54,9 @@ kubectl get endpointslices -l kubernetes.io/service-name=kube-dnss -n kube-syste
 kubectl exec -it podname -- cat /etc/resolv.conf
 kubectl exec -it busybox -- nslookup kubernetes.default.svc.cluster.local
 kubectl exec -it busybox -- nslookup my-app-service.default.svc.cluster.local
+# kube-proxy troubleshooting
+check kube-proxy pod status; make sure all daemonsets are running
+kubectl get pods --namespace=kube-system -l k8s-app=kube-proxy
+kubectl logs kube-proxy-1343q -n kube-system
+kubectl get configmap kube-proxy -n kube-system -o yaml
+ipvsadm -ln # check network
