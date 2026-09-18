@@ -37,3 +37,15 @@ sudo systemctl status kubelet
 sudo journalctl -u kubelet
 # check certificates
 openssl x509 -in /var/lib/kubelet/node01.crt -text
+
+# network troubleshooting
+kubectl get pods # make sure pods are running. can use -n for namespace or -l key=value for labels to narrow down
+# test connectivity to pod directly without service
+kubectl get pods -o wide  # returns IP address
+kubectl get pods -l name=web-app -o=jsonpath='{.items[*].status.podIP}'  # say it returns 10.244.0.5 10.244.0.6 10.244.0.7
+kubectl run -it --rm --restart=Never busybox --image=busybox sh          # create a busybox pod and enter a command line shell
+for ip in 10.244.0.5 10.244.0.6 10.244.0.7; do wget -qO- $ip:9376; done  # perform a connectivity test inside kubernetes
+# if it checks out, verify services. Start with configuration
+kubectl get svc hostnames -o yaml
+kubectl get endpointslices -l kubernetes.io/service-name=hostnames -n default # returns all IP addresses for services that name
+# CoreDNS troubleshooting
