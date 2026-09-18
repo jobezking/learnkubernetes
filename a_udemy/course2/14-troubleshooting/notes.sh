@@ -29,6 +29,7 @@ ls -l /etc/kubernetes/manifests
 
 # worker node troubleshooting
 kubectl get nodes
+kubect get nodes -o wide
 kubectl describe node node01
 ssh node01 
 top; df -h # linux troubleshooting etc.
@@ -62,3 +63,10 @@ kubectl get pods --namespace=kube-system -l k8s-app=kube-proxy
 kubectl logs kube-proxy-1343q -n kube-system
 kubectl get configmap kube-proxy -n kube-system -o yaml
 ipvsadm -ln # check network
+
+
+# JSON Path in Kubectl
+1. identify the kubectl command i.e. kubectl get nodes, kubectl get pods
+2. learn json output of command i.e. kubectl get nodes -o json; kubectl get pods -o json
+3. Form JSON Path query
+4. use the JSON Path query with kubectl command
