@@ -49,3 +49,8 @@ for ip in 10.244.0.5 10.244.0.6 10.244.0.7; do wget -qO- $ip:9376; done  # perfo
 kubectl get svc hostnames -o yaml
 kubectl get endpointslices -l kubernetes.io/service-name=hostnames -n default # returns all IP addresses for services that name
 # CoreDNS troubleshooting
+kubectl get pods --namespace=kube-system -l k8s-app=kube-dns
+kubectl get endpointslices -l kubernetes.io/service-name=kube-dnss -n kube-system
+kubectl exec -it podname -- cat /etc/resolv.conf
+kubectl exec -it busybox -- nslookup kubernetes.default.svc.cluster.local
+kubectl exec -it busybox -- nslookup my-app-service.default.svc.cluster.local
