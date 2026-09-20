@@ -70,3 +70,8 @@ ipvsadm -ln # check network
 2. learn json output of command i.e. kubectl get nodes -o json; kubectl get pods -o json
 3. Form JSON Path query
 4. use the JSON Path query with kubectl command
+kubectl get nodes -o=jsonpath='{.items[*].metadata.name}'
+kubectl get nodes -o=jsonpath='{.items[*].status.nodeInfo.architecture}'
+kubectl get nodes -o=jsonpath='{.items[*].status.capacity.cpu}'
+#combine
+kubectl get nodes -o=jsonpath='{.items[*].metadata.name}{.items[*].status.capacity.cpu}'
