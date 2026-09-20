@@ -75,3 +75,4 @@ kubectl get nodes -o=jsonpath='{.items[*].status.nodeInfo.architecture}'
 kubectl get nodes -o=jsonpath='{.items[*].status.capacity.cpu}'
 #combine
 kubectl get nodes -o=jsonpath='{.items[*].metadata.name}{.items[*].status.capacity.cpu}'
+kubectl get nodes -o=jsonpath='{.items[*].metadata.name}{"\n"}{.items[*].status.capacity.cpu}'
