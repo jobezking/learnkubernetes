@@ -15,3 +15,5 @@ kubectl patch pod frontend -p '{"spec":{"containers":[{"name":"frontend",\
 "image":"nginx:1.29.2"}]}}'
 kubectl delete pod frontend
 kubectl delete pod frontend --now
+
+kubectl get pod web-app -o yaml
