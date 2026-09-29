@@ -17,3 +17,7 @@ kubectl delete pod frontend
 kubectl delete pod frontend --now
 
 kubectl get pod web-app -o yaml
+
+kubectl apply -f nginx-deployment.yaml
+kubectl get deployment nginx-deployment -o yaml
+kubectl delete -f nginx-deployment.yaml
