@@ -8,3 +8,10 @@ Status: the actual state of the object
 kubectl explain: time-saving tool during exam i.e.
 kubectl explain pods.spec.containers
 kubectl explain deployment.spec.strategy.rollingUpdate
+
+kubectl run frontend --image=nginx:1.29.0 --port=80
+kubectl edit pod frontend
+kubectl patch pod frontend -p '{"spec":{"containers":[{"name":"frontend",\
+"image":"nginx:1.29.2"}]}}'
+kubectl delete pod frontend
+kubectl delete pod frontend --now
