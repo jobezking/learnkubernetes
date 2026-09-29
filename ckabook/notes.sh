@@ -21,3 +21,5 @@ kubectl get pod web-app -o yaml
 kubectl apply -f nginx-deployment.yaml
 kubectl get deployment nginx-deployment -o yaml
 kubectl delete -f nginx-deployment.yaml
+
+kubectl run frontend --image=nginx:1.29.2 --port=80 -o yaml --dry-run=client > pod.yaml
