@@ -39,3 +39,25 @@ kubectl create ns kube-flannel
 kubectl label --overwrite ns kube-flannel pod-security.kubernetes.io/ enforce=privileged
 helm repo add flannel https://flannel-io.github.io/flannel/
 helm install flannel --set podCidr="10.244.0.0/16" --namespace kube-flannel flannel/flannel
+
+# Upgrading
+# start with control plane
+sudo apt update
+sudo apt-cache madison kubeadm
+sudo apt-mark unhold kubeadm && sudo apt-get update && sudo apt-get install \
+  -y kubeadm=1.31.5-1.1 && sudo apt-mark hold kubeadm
+sudo apt-get update && sudo apt-get install -y --allow-change-held-packages \
+  kubeadm=1.31.5-1.1
+kubeadmn version
+sudo kubeadm upgrade plan
+sudo kubeadm upgrade apply v1.31.5
+
+kubectl drain kube-control-plane --ignore-daemonsets
+sudo apt-mark unhold kubelet kubectl && sudo apt-get update && sudo \
+  apt-get install -y kubelet=1.31.5-1.1 kubectl=1.31.5-1.1 && sudo apt-mark \
+  hold kubelet kubectl
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
+kubectl uncordon kube-control-plane
+kubectl get nodes
+#now workers
