@@ -73,3 +73,7 @@ sudo systemctl daemon-reload
 sudo systemctl restart kubelet
 kubectl uncordon kube-worker-1
 kubectl get nodes
+
+# etcd backup/restore
+#to install etcdctl and etcdutl
+sudo apt update && sudo apt install -y etcd-client && echo 'export ETCDCTL_API=3' >> ~/.bashrc
