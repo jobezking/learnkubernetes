@@ -1,3 +1,8 @@
+Allowed during exam:
+Reference manual: https://kubernetes.io/docs 
+Blog: https://kubernetes.io/blog 
+Helm: https://helm.sh/docs
+
 Chapter 1
 Chapter 2
 Chapter 3
