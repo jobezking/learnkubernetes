@@ -13,3 +13,11 @@ Identify the node the Pod has been scheduled on.
 Evict all Pods from the node that runs the Pod at once. Do not use the kubectl delete pod command to perform the operation. 
 Ensure that the Pod is not running anymore.
 Upgrade all nodes of the cluster from Kubernetes 1.32.1 to 1.32.2.
+
+Chapter 5
+Practice backing up etcd
+Know how to restore etcd
+Restoring etcd requires the use of the executable etcdutl. 
+You will need to point the command to the snapshot file created in the backup process, and to a target directory used to extract the etcd data into. 
+Just extracting the etcd data into a directory doesn’t tell the etcd process to use it. 
+You need to configure the host path to the directory in the configuration for etcd.
