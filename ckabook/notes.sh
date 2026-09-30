@@ -77,3 +77,10 @@ kubectl get nodes
 # etcd backup/restore
 #to install etcdctl and etcdutl
 sudo apt update && sudo apt install -y etcd-client && echo 'export ETCDCTL_API=3' >> ~/.bashrc
+sudo ETCDCTL_API=3 etcdctl --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+  --cert=/etc/kubernetes/pki/etcd/server.crt \
+  --key=/etc/kubernetes/pki/etcd/server.key \
+  snapshot save /opt/etcd-backup.db
+
+sudo ETCDCTL_API=3 etcdctl snapshot restore /opt/etcd-backup.db \
+  --data-dir=/var/lib/etcd-backup
