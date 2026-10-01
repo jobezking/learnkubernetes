@@ -90,3 +90,15 @@ sudo ETCDCTL_API=3 etcdctl snapshot restore /opt/etcd-backup.db \
 
 sudo ETCDCTL_API=3 etcdutl --data-dir=/var/lib/from-backup snapshot restore \
   /opt/etcd-backup.db
+
+# Authentication and authorization
+$HOME/.kube/config # contains the credentials for the cluster used by kubectl to authenticate to the cluster. 
+# contains information about the cluster, user, and context.
+kubectl config view # view the contents of the kubeconfig file
+kubectl config get-contexts; kubectl config current-context # list all contexts in the kubeconfig file
+kubectl config use-context <context-name> # switch to a different context
+kubectl config set-credentials myuser \
+  --client-key=myuser.key --client-certificate=myuser.crt \
+  --embed-certs=true # set credentials for a user in the kubeconfig file
+kubectl create role read-only --verb=get,list,watch --resource=pods --namespace=default # create a role that allows read-only access to pods in the default names
+kubectl get roles 
