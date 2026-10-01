@@ -102,3 +102,5 @@ kubectl config set-credentials myuser \
   --embed-certs=true # set credentials for a user in the kubeconfig file
 kubectl create role read-only --verb=get,list,watch --resource=pods --namespace=default # create a role that allows read-only access to pods in the default names
 kubectl get roles 
+kubectl describe rolebinding read-only-binding # create a role binding that binds the read-only role to a user
+kubectl auth can-i --list --as bmuschko # check what actions a user can perform in the cluster
