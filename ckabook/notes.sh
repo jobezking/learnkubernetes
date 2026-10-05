@@ -100,7 +100,18 @@ kubectl config use-context <context-name> # switch to a different context
 kubectl config set-credentials myuser \
   --client-key=myuser.key --client-certificate=myuser.crt \
   --embed-certs=true # set credentials for a user in the kubeconfig file
+# role: API primitives that define a set of permissions for a user or group of users. Roles can be created at the namespace level or cluster level.
+# default roles: cluster-admin, admin, edit, view
+# rolebinding: API primitive that binds a role to a user or group of users. RoleBindings can be created at the namespace level or cluster level.
 kubectl create role read-only --verb=get,list,watch --resource=pods --namespace=default # create a role that allows read-only access to pods in the default names
+kubectl create rolebinding alice-pod-reader --role=pod-reader --user=alice #create a role binding that binds the pod-reader role to a user named alice in the default namespace
+kubectl create rolebinding read-only-binding --role=read-only --user=bmuschko
+kubectl get rolebindings
 kubectl get roles 
 kubectl describe rolebinding read-only-binding # create a role binding that binds the read-only role to a user
 kubectl auth can-i --list --as bmuschko # check what actions a user can perform in the cluster
+# Service accounts: API primitive that provides an identity for processes that run in a pod. Service accounts can be used to authenticate to the Kubernetes API server and access resources in the cluster.
+kubectl create serviceaccount my-service-account # create a service account named my-service-account in the default namespace
+kubectl get serviceaccounts # list all service accounts in the default namespace
+kubectl describe serviceaccount my-service-account # view details of a service account
+# assigning service account to a pod cannot be done imperatively requires declarative approach (yaml file)

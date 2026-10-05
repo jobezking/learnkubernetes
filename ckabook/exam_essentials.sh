@@ -26,3 +26,5 @@ Restoring etcd requires the use of the executable etcdutl.
 You will need to point the command to the snapshot file created in the backup process, and to a target directory used to extract the etcd data into. 
 Just extracting the etcd data into a directory doesn’t tell the etcd process to use it. 
 You need to configure the host path to the directory in the configuration for etcd.
+
+Chapter 6 see sheet
