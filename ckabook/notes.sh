@@ -115,3 +115,34 @@ kubectl create serviceaccount my-service-account # create a service account name
 kubectl get serviceaccounts # list all service accounts in the default namespace
 kubectl describe serviceaccount my-service-account # view details of a service account
 # assigning service account to a pod cannot be done imperatively requires declarative approach (yaml file)
+
+# CRD: Custom Resource Definition is an API primitive that allows users to define their own custom resources in Kubernetes. CRDs can be used to extend the Kubernetes API with new resource types that are not included in the default Kubernetes API.
+# Installing operator lifetime manager
+curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.31.0/install.sh | bash -s v0.31.0
+kubectl create -f https://operatorhub.io/install/argocd-operator.yaml
+kubectl get csv -n openshift-operators
+kubectl get csv -n operators
+# Application:  group of kubernetes resources as defined by a manifest
+# ApplicationSet: a group or set of Application resources
+# App Project: logical grouping that defines which git repos, clusters, namespaces a set of applications can access. Multitenancy and security boundaries
+kubectl get crds
+kubectl describe crd applications.argoproj.io
+# nginx-application.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/bmuschko/cka-study-guide.git
+    targetRevision: HEAD
+    path: ./ch07/nginx
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+#  kubectl apply -f nginx-application.yaml
+kubectl describe application nginx
+kubectl delete application nginx
+kubectl get deployments,services,pods -l app=nginx
+kubectl get deployments,pods -n operators
