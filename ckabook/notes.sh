@@ -163,3 +163,6 @@ helm list -n
 helm repo update
 helm upgrade my-jenkins jenkinsci/jenkins --version 5.8.26
 helm uninstall my-jenkins -n jenkins
+# kustomize: tool for customizing kubernetes resource configuration. It allows you to define a base set of resources and then apply overlays to modify those resources for different environments or use cases.
+kubectl kustomize <target>
+kubectl apply -k <target>
