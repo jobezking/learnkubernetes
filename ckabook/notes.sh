@@ -146,3 +146,20 @@ kubectl describe application nginx
 kubectl delete application nginx
 kubectl get deployments,services,pods -l app=nginx
 kubectl get deployments,pods -n operators
+
+# Helm
+helm repo list
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo add jenkins https://charts.jenkins.io
+helm repo update
+helm search repo bitnami
+helm install my-jenkins jenkins/jenkins --version 5.8.25 --set controller.adminPassword=admin123
+kubectl get pods -n default -l app.kubernetes.io/instance=my-jenkins
+helm show jenkins/jenkins
+helm show values jenkins/jenkins
+helm install my-jenkins jenkinsci/jenkins --version 4.6.4 --set controller.adminUser=boss --set controller.adminPassword=password \
+-n jenkins --create-namespace
+helm list -n
+helm repo update
+helm upgrade my-jenkins jenkinsci/jenkins --version 5.8.26
+helm uninstall my-jenkins -n jenkins
