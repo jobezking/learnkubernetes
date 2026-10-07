@@ -22,9 +22,35 @@ kubectl apply -f nginx-deployment.yaml
 kubectl get deployment nginx-deployment -o yaml
 kubectl delete -f nginx-deployment.yaml
 
+# kubectl run options: --image; --port; --env; --rm; --dry-run=client; -o yaml
+#Pod lifecycle: Pending -> Running -> Succeeded/Failed
+# Pending: Pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while.
+# Running: The Pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting.
+# Succeeded: All containers in the Pod have terminated in success, and will not be restarted.
+# Failed: All containers in the Pod have terminated, and at least one container has terminated in failure. That is, the container either exited with non-zero status or was terminated by the system.
+# Unkown: For some reason the state of the Pod could not be obtained, typically due to an error in communicating with the host of the Pod.
+# Container level restart policy: Always, OnFailure, Never
+
 kubectl run frontend --image=nginx:1.29.2 --port=80 -o yaml --dry-run=client > pod.yaml
 vim pod.yaml
 kubectl apply -f pod.yaml
+
+kubectl describe pods hazelcast
+kubectl logs hazelcast
+kubectl exec -it hazelcast -- /bin/sh
+kubectl delete pod hazelcast --grace-period=0 --force
+
+# To send a single command
+kubectl exec hazelcast -- ls /opt/hazelcast
+# create temporary pod to run a command in the cluster
+kubectl run -i --tty temp-pod --image=busybox --rm -it --restart=Never -- ls /opt
+# namespaces
+kubectl get namespaces
+kubectl create namespace my-namespace
+kubectl get namespace my-namespace -o yaml > my-namespace.yaml
+kubectl run pod --image=nginx:1.25.1 -n my-namespace
+kubectl get pods -n my-namespace
+kubectl delete namespace my-namespace  # will automatically delete pods and other objects inside namespace
 
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 
