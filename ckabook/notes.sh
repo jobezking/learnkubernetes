@@ -192,3 +192,54 @@ helm uninstall my-jenkins -n jenkins
 # kustomize: tool for customizing kubernetes resource configuration. It allows you to define a base set of resources and then apply overlays to modify those resources for different environments or use cases.
 kubectl kustomize <target>
 kubectl apply -k <target>
+
+# configmap: API primitive that allows you to store configuration data as key-value pairs. 
+# ConfigMaps can be used to decouple configuration data from application code and provide a way to manage configuration data in a centralized manner.
+kubectl configmap create my-config --from-literal=key1=value1 --from-literal=key2=value2
+kubectl configmap create my-config --from-file=config.txt
+kubectl configmap create my-config --from-file=config-dir/
+kubectl configmap create my-config --from-env-file=config.env
+#
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-config
+data:
+  DB_HOST: mysql-service
+  DB_USER: backend
+#
+apiVersion: v1
+kind: Pod
+metadata:
+  name: backend
+spec:
+  containers:
+  - image: bmuschko/web-app:1.0.1
+    name: backend
+    envFrom:
+    - configMapRef:
+        name: db-config
+#
+kubectl exec backend -- env
+#
+apiVersion: v1
+kind: Pod
+metadata:
+  name: backend
+spec:
+  containers:
+  - image: bmuschko/web-app:1.0.1
+    name: backend
+    volumeMounts:
+    - name: db-config-volume
+      mountPath: /etc/config
+  volumes:
+  - name: db-config-volume
+    configMap:                             
+      name: db-config
+#
+#Secrets
+kubectl secret create my-secret --from-literal=username=admin --from-literal=password=secret123
+kubectl secret create my-secret --from-file=ssh-privatekey
+kubectl secret create my-secret --from-file=ssh-publickey
+kubectl secret create my-secret --from-env-file=secrets.env

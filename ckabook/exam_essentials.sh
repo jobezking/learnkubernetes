@@ -64,3 +64,10 @@ Within the directory, create two files: pod.yaml and configmap.yaml. The pod.yam
  Apply the changes. Delete both objects with a single declarative command. Use Kustomize to set a common namespace t012 for the resource file pod.yaml. 
  The file pod.yaml defines the Pod named nginx with the image nginx:1.21.1 without a namespace. 
  Run the Kustomize command that renders the transformed manifest on the console." 
+
+ Chapter 11
+ Practice creating ConfigMap objects with the imperative and declarative approaches
+ Practice creating Secret objects with the imperative and declarative approaches
+ Understand the purpose of specialized Secret types
+ Know how to inspect ConfigMap and Secret data
+ Exercise the consumption of ConfigMaps and Secrets in Pods
