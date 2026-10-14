@@ -71,3 +71,7 @@ Within the directory, create two files: pod.yaml and configmap.yaml. The pod.yam
  Understand the purpose of specialized Secret types
  Know how to inspect ConfigMap and Secret data
  Exercise the consumption of ConfigMaps and Secrets in Pods
+
+ Chapter 13
+ Experience the effects of resource requirements on scheduling and autoscaling
+ Understand the purpose and runtime effects of resource quotas

@@ -332,3 +332,74 @@ spec:
       target:
         type: AverageValue
         averageValue: 500Mi
+# Container resource requests and limits
+spec.containers[].resources.requests.cpu                CPU resource type                     500m (five hundred millicpu) 
+spec.containers[].resources.requests.memory             Memory resource type                  64Mi (2^26 bytes) 
+spec.containers[].resources.requests.hugepages-<size>   Huge page resource type               hugepages-2Mi: 60Mi
+spec.containers[].resources.requests.ephemeral-storage  Ephemeral storage resource type       4Gi
+#
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rate-limiter
+spec:
+  containers:
+  - name: business-app
+    image: bmuschko/nodejs-business-app:1.0.0
+    ports:
+    - containerPort: 8080
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "1"
+      limits:
+        memory: "256Mi"
+  - name: ambassador
+    image: bmuschko/nodejs-ambassador:1.0.0
+    ports:
+    - containerPort: 8081
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "64Mi"
+# Best practices for resource requests and limits:
+Always define memory requests. Always define memory limits. 
+Always set your memory requests equal to your limit. 
+Always define CPU requests. Do not use CPU limits.
+# Resource quotas: API primitive that allows you to limit the amount of resources that can be consumed by a namespace. Resource quotas can be used to prevent a single namespace from consuming all the resources in a cluster and to ensure fair resource allocation among different namespaces.
+1. Create namespace
+kubectl create namespace team-awesome
+2. Create resource quota
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: team-awesome-quota
+  namespace: team-awesome
+spec:
+  hard:
+    requests.cpu: "4"
+    requests.memory: 8Gi
+    limits.cpu: "8"
+    limits.memory: 16Gi
+3. Apply resource quota
+kubectl apply -f team-awesome-quota.yaml
+kubectl describe resourcequota awesome-quota -n team-awesome
+# Limit ranges: API primitive that allows you to define minimum and maximum resource limits for a namespace. Limit ranges can be used to enforce resource usage policies and to ensure that pods in a namespace do not exceed certain resource limits.
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: team-awesome-limits
+  namespace: team-awesome
+spec:
+  limits:
+  - type: Container
+    max:
+      cpu: "2"
+      memory: 4Gi
+    min:
+      cpu: "100m"
+      memory: 128Mi
+kubectl apply -f team-awesome-limits.yaml
+kubectl describe limitrange team-awesome-limits -n team-awesome   
