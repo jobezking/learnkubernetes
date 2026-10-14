@@ -243,3 +243,43 @@ kubectl secret create my-secret --from-literal=username=admin --from-literal=pas
 kubectl secret create my-secret --from-file=ssh-privatekey
 kubectl secret create my-secret --from-file=ssh-publickey
 kubectl secret create my-secret --from-env-file=secrets.env
+
+# Deployments
+kubectl create deployment app-cache --image=memcached:1.6.8
+#Labels
+metadata.labels 
+spec.selector.matchLabels 
+spec.template.metadata.labels
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-cache
+  labels:
+    app: app-cache
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: app-cache
+  template:
+    metadata:
+      labels:
+        app: app-cache
+    spec:
+      containers:
+      - name: app-cache
+        image: memcached:1.6.8
+#
+kubectl get deployments -o wide
+kubectl get replicasets, pods -l app=app-cache
+kubectl edit deployment app-cache
+kubectl describe deployment app-cache
+kubectl scale deployment app-cache --replicas=6
+kubectl set image deployment app-cache app-cache=memcached:1.6.9
+kubectl rollout status deployment app-cache
+kubectl rollout history deployment app-cache
+kubectl rollout history deployment app-cache --revision=1
+kubectl rollout history deployment app-cache --revision=2
+kubectl rollout undo deployment app-cache
+kubectl rollout undo deployment app-cache --to-revision=1
+kubectl delete deployment app-cache
