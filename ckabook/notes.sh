@@ -403,3 +403,24 @@ spec:
       memory: 128Mi
 kubectl apply -f team-awesome-limits.yaml
 kubectl describe limitrange team-awesome-limits -n team-awesome   
+# scheduling pods. Look for scheduler, which should be kube-scheduler*
+kubectl get pods -n kube-system
+# find nodes that a pod runs on
+kubectl get pod nginx -o=wide
+kubectl get pod nginx -o yaml | grep nododeName:
+kubectl  describe pod nginx | grep Node:
+# node selector: label node and define pod to match label
+kubectl label node node01 disk=ssd
+kubectl get nodes --show-labels
+#
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app
+spec:
+  nodeSelector:
+    disk: ssd
+  containers:
+  - name: nginx
+    image: nginx:1.27.1
+#
