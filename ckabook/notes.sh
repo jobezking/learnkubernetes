@@ -283,3 +283,52 @@ kubectl rollout history deployment app-cache --revision=2
 kubectl rollout undo deployment app-cache
 kubectl rollout undo deployment app-cache --to-revision=1
 kubectl delete deployment app-cache
+#HPA: requres metrics server. Also requires spec.containers[].requests.cpu to be set in pods for CPU-based scaling. HPA can also scale based on memory usage or custom metrics.
+kubectl autoscale deployment app-cache --cpu-percent=80 --min=3
+#
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: app-cache
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: app-cache
+  minReplicas: 3
+  maxReplicas: 5
+  metrics:
+  - resource:
+      name: cpu
+      target:
+        averageUtilization: 80
+        type: Utilization
+    type: Resource
+#
+kubectl get hpa
+kubectl describe hpa app-cache
+#mutiple scaling metrics
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: app-cache
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: app-cache
+  minReplicas: 3
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 80
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: AverageValue
+        averageValue: 500Mi
