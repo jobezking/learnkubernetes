@@ -424,3 +424,21 @@ spec:
   - name: nginx
     image: nginx:1.27.1
 #
+kubectl get node node02 -o yaml | grep -C 3 taints:
+kubectl taint node node02 special=true:NoSchedule
+# add toleration to pod so it will run on tainted node. Example shows matching toleration assigned to pod for taint special=true:NoSchdule
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app
+spec:
+  tolerations:
+  - key: "special"
+    operator: "Equal"
+    value: "true"
+    effect: "NoSchedule"
+  containers:
+  - name: nginx
+    image: nginx:1.27.1
+
+

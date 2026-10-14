@@ -75,3 +75,15 @@ Within the directory, create two files: pod.yaml and configmap.yaml. The pod.yam
  Chapter 13
  Experience the effects of resource requirements on scheduling and autoscaling
  Understand the purpose and runtime effects of resource quotas
+ Chapter 14
+ Be able to identify the node a Pod runs on
+ Understand the ins and outs of Pod scheduling options
+ 1. Inspect the existing nodes and their assigned labels. Pick one available node and label it with the key-value pair color=green.
+ Pick a second node and label it with the key-value pair color=red. Define a Pod with the image nginx:1.27.1 in the YAML manifest file pod.yaml.
+ Use the nodeSelector assignment to schedule the Pod on the node with the label color=green. Create the Pod and ensure that the correct node has been used to run the Pod.
+ Change the Pod definition to schedule it on nodes with the label color=green or color=red. Verify that the Pod runs on the correct node.
+ 2. Define a Pod with the image nginx:1.27.1 in the YAML manifest file pod.yaml. Create the Pod and check which node the Pod is running on.
+ Add a taint to the node. Set it to exclusive=yes. The effect should be NoExecute.
+ Modify the live Pod object by adding the following toleration: it should be equal to the taint key-value pair and have the effect NoExecute.
+ Observe the running behavior of the Pod. If your cluster has more than a single node, where do you expect the Pod to run?
+ Remove the taint from the node. Do you expect the Pod to still run on the node?
