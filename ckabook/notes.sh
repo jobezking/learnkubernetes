@@ -440,5 +440,28 @@ spec:
   containers:
   - name: nginx
     image: nginx:1.27.1
-
-
+# Volumes
+# Relevant to exam: hostPath, emptyDir, configMap, secret, persistentVolumeClaim, nfs 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: business-app
+spec:
+  volumes:
+  - name: shared-data
+    emptyDir: {}                            
+  containers:
+  - name: nginx
+    image: nginx:1.27.1
+    volumeMounts:
+    - name: shared-data
+      mountPath: /usr/share/nginx/html
+      readOnly: false   
+  - name: sidecar
+    image: busybox:1.37.0
+    volumeMounts:
+    - name: shared-data
+      mountPath: /data
+#
+kubectl get pod business-app -o yaml | grep -C 3 volumes:
+kubectl exec business-app -it -c nginx --

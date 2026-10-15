@@ -87,3 +87,11 @@ Within the directory, create two files: pod.yaml and configmap.yaml. The pod.yam
  Modify the live Pod object by adding the following toleration: it should be equal to the taint key-value pair and have the effect NoExecute.
  Observe the running behavior of the Pod. If your cluster has more than a single node, where do you expect the Pod to run?
  Remove the taint from the node. Do you expect the Pod to still run on the node?
+Chapter 15
+Understand the need and use cases for a volume
+Practice defining and consuming volumes
+Create a Pod YAML manifest with two containers that use the image alpine:3.22.2. Provide a command for both containers that keeps them running forever. 
+Define a volume of type emptyDir for the Pod. Container 1 should mount the volume to path /etc/a, and Container 2 should mount the volume to path /etc/b. 
+Open an interactive shell for Container 1 and create the directory data in the mount path. 
+Navigate to the directory and create the file hello.txt with the contents “Hello World.” Exit out of the container. 
+Open an interactive shell for Container 2 and navigate to the directory /etc/b/data. Inspect the contents of file hello.txt. Exit out of the container.
