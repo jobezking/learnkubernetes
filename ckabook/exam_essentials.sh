@@ -95,3 +95,22 @@ Define a volume of type emptyDir for the Pod. Container 1 should mount the volum
 Open an interactive shell for Container 1 and create the directory data in the mount path. 
 Navigate to the directory and create the file hello.txt with the contents “Hello World.” Exit out of the container. 
 Open an interactive shell for Container 2 and navigate to the directory /etc/b/data. Inspect the contents of file hello.txt. Exit out of the container.
+Chapter 16
+Internalize the mechanics of defining and consuming a PersistentVolume
+Know the differences between static and dynamic provisioning of a PersistentVolume
+1. Create a PersistentVolume named logs-pv that maps to the hostPath /var/logs. The access mode should be ReadWriteOnce and ReadOnlyMany. 
+Provision a storage capacity of 5 Gi. Ensure that the status of the PersistentVolume shows Available. Create a PersistentVolumeClaim named logs-pvc. 
+It uses ReadWriteOnce access. Request a capacity of 2 Gi. Ensure that the status of the PersistentVolume shows Bound. 
+Mount the PersistentVolumeClaim in a Pod running the image nginx at the mount path /var/log/nginx. 
+Open an interactive shell to the container and create a new file named my-nginx.log in /var/log/nginx. 
+Exit out of the Pod. Delete the Pod and re-create it with the same YAML manifest. 
+Open an interactive shell to the Pod, navigate to the directory /var/log/nginx, and find the file you created before.
+2.Navigate to the directory app-a/ch16/dynamic-provisioning of the checked-out GitHub repository bmuschko/cka-study-guide. 
+Inspect the YAML manifest definition in the file local-path-storage-0.0.31.yaml. Create the objects from the YAML manifest file. 
+Create a PersistentVolumeClaim named db-pvc in the namespace persistence.
+The access it uses is ReadWriteOnce. Request a capacity of 10 Mi. Use the storageclass name local-path. 
+Ensure that the status of the PersistentVolumeClaim object shows Pending. A PersistentVolume object should not have been provisioned yet. 
+Mount the PersistentVolumeClaim in a Pod named app-consuming-pvc in the namespace persistence at the mount path /mnt/data. 
+The container should use the image alpine:3.21.3. Wait until the Pod transitions into the Running status. 
+Ensure that the PersistentVolume object has been created dynamically. 
+Open an interactive shell to the container, and create a new file named test.db in /mnt/data. Exit out of the Pod.

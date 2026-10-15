@@ -465,3 +465,119 @@ spec:
 #
 kubectl get pod business-app -o yaml | grep -C 3 volumes:
 kubectl exec business-app -it -c nginx --
+# Persistent Volumes
+# Types: hostPath (testing only), local (requires node affinity), nfs, csi (container storage interface; most common), fc, icsci
+# modes: filesystem, block
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: db-pv
+spec:
+  capacity:                   
+    storage: 1Gi         
+  accessModes:           
+    - ReadWriteOnce      
+  hostPath:
+    path: /data/db
+#
+kubectl get pv db-pv -o yaml | grep -C 3 capacity:
+kubectl get pv -o wide
+# Access Modes: ReadWriteOnce (RWO), ReadOnlyMany (ROX), ReadWriteMany (RWX), ReadWriteOncePod (RWOP)
+kubectl get pv db-pv -o jsonpath='{.spec.accessModes}'
+# Reclaim policies: Retain, Recycle, Delete
+kubectl get pv db-pv -o jsonpath='{.spec.persistentVolumeReclaimPolicy}'
+# node affinity definition
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: local-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  local:                                               
+  path: /mnt/data
+  nodeAffinity:                                   
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname             
+          operator: In
+          values:
+          - node01
+          - node02
+# Define a PVC
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: db-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-storage
+  resources:
+    requests:
+      storage: 1Gi
+#
+kubectl gget pvc db-pvc
+kubectl describe pvc db-pvc
+# Binding pv to pvc: static (pv created first) or dynamic (pvc created first) by name
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: specific-pvc
+spec:
+  volumeName: db-pv           
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+# mounting a PVC in a pod
+apiVersion: v1
+kind: Pod
+metadata:
+  name: db-app
+spec:
+  containers:
+  - name: db-app
+    image: bmuschko/postgres:1.0.0
+    volumeMounts:
+    - name: db-storage    
+      mountPath: /var/lib/postgresql/data
+  volumes:
+  - name: db-storage
+    persistentVolumeClaim:
+      claimName: db-pvc
+# 
+kubectl get pods
+kubectl describe pod app-cache
+kubectl describe pvc specific-pvc
+# Storage Classes: API primitive that allows you to define different types of storage in a Kubernetes cluster. Storage classes can be used to define different performance characteristics, availability, and cost for different types of storage.
+kubectl get storageclass
+#
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: fast
+provisioner: kubernetes.io/gce-pd
+parameters:
+  type: pd-ssd
+  replication-type: regional-pd
+#
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: db-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 512Mi
+  storageClassName: standard
+#
+kubectl get pv,pvc -o wide
