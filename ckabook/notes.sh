@@ -714,3 +714,45 @@ spec:
         matchLabels:
           app: coffee-shop
 #
+#spec attributes of network policy
+podSelector: Selects the Pods in the namespace to apply the network policy to.
+policyTypes: Defines the type of traffic (i.e., ingress and/or egress) the network policy applies to.
+ingress: Lists the rules for incoming traffic. Each rule can define from and ports sections.
+egress: Lists the rules for outgoing traffic. Each rule can define to and ports sections.
+#attributes of network policy to and from selectors
+podSelector: Selects Pods by label(s) in the same namespace as the network policy that should be allowed as ingress sources or egress destinations
+namespaceSelector: Selects namespaces by label(s) for which all Pods should be allowed as ingress sources or egress destinations
+namespaceSelector and podSelector: Selects Pods by label(s) within namespaces by label(s)
+kubectl get networkpolicy api-allow
+kubectl describe networkpolicy api-allow
+#
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+  namespace: internal-tools
+spec:
+  podSelector: {}                     
+  policyTypes:                     
+  - Ingress                        
+  - Egress
+#
+kubectl get pod metrics-api --template '{{.status.podIP}}' -n internal-tools
+#
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: port-allow
+  namespace: internal-tools
+spec:
+  podSelector:
+    matchLabels:
+      app: api
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: consumer
+    ports:                              
+    - protocol: TCP                
+      port: 80

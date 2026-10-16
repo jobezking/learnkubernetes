@@ -152,3 +152,7 @@ to the host app.production.com. Verify access to the Ingresses via this hostname
 Chapter 19
 Check on existing GatewayClasses
 Understand the Gateway API CRDs
+Chapter 20
+Understand the purpose and effects of network policies
+Know how to implement the principle of least privilege
+Explore common network policy scenarios
