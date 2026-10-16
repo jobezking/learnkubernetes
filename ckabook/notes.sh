@@ -581,3 +581,8 @@ spec:
   storageClassName: standard
 #
 kubectl get pv,pvc -o wide
+#Services
+#Access Scopes
+# LoadBalancer: accessible outside k8s cluster using external load balance
+# NodePort: accessible outside k8s cluster using node ip and port
+# ClusterIP: accessible only inside k8s cluster
