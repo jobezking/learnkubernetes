@@ -698,3 +698,19 @@ gateway.envoyproxy.io/owning-gateway-name=hello-world-gateway \
 -o jsonpath='{.items[0].metadata.name}')
 kubectl -n envoy-gateway-system port-forward service/${ENVOY_SERVICE} 8889:80 &
 curl hello-world.exposed:8889
+# network policy
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: api-allow
+spec:
+  podSelector:                          
+    matchLabels:
+      app: payment-processor
+      role: api
+  ingress:                         
+  - from:
+    - podSelector:
+        matchLabels:
+          app: coffee-shop
+#
