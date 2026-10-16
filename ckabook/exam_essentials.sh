@@ -128,3 +128,24 @@ Create a ClusterIP Service named database-service that exposes port 3306 and tar
 Create a Deployment named frontend with two replicas using image busybox:1.35 that runs a command to continuously test the database
 connection using the following command: sh -c "while true; do nc -zv database-service 3306; sleep 5; done" 
 Verify that the frontend Pods can resolve and connect to the database Service.
+Chapter 18
+Know difference between service and ingress; understand ingress controller role; practice definition of ingress rules
+1. Your company has two microservices running in the same Kubernetes cluster: A frontend application that serves the main website, 
+and an API backend service that handles API requests. Both services need to be accessible from outside the cluster through the 
+same domain name (app.example.com) but with different URL paths. Use the F5 NGINX Ingress controller. 
+Create a namespace called webapp. Deploy two applications: a frontend application (use nginx:1.29.1-alpine image, name: frontend, two replicas), 
+and an API application (use the httpd:2.4.65-alpine image, name: api, two replicas). 
+Create ClusterIP Services for both Deployments, a Frontend Service on port 80, an API Service on port 80. 
+Create an Ingress resource that uses the host app.example.com and routes the paths / and /app to the Frontend Service. 
+It also routes /api to the API Service. Use the nginx Ingress class. Verify the proper Ingress configuration by making a call to it.
+2. Your team wants to implement a blue-green deployment strategy using Ingress. You need to create an Ingress configuration that can
+switch traffic between two versions of an application, with the ability to do canary testing before full switchover. 
+The team decided to use the F5 NGINX Ingress controller. You may reference the controller-specific annotations from the documentation. 
+Create a namespace called production-apps. Deploy two versions of an application: 
+a blue version (current) named app-blue with three replicas with the container image 
+nginxdemos/hello:0.3-plain-text, and a green version (new) named app-green with three replicas with the container image 
+nginxdemos/hello:0.4-plain-text. Create two Ingress resources in the production-apps namespace. 
+A main ingress routing to blue version, and a canary ingress for testing green version (20% traffic). 
+Assign the hostname app.production.com. The traffic routing should look as follows: Default traffic goes to blue version. 
+Twenty percent of traffic goes to green version (canary). Add an entry in /etc/hosts that maps the load balancer IP address 
+to the host app.production.com. Verify access to the Ingresses via this hostname. Test the blue-green traffic routing distribution.

@@ -622,3 +622,20 @@ kubectl create service loadbalancer echoserver --tcp=5005:8080
 kubectl get svc echoserver -o yaml     
 # gives CLUSTER-IP, EXTERNAL-IP, PORT(S) 5005:30158/TCP
 wget <external-ip>:5005 --timeout=5  --tries=2 # access service using LoadBalancer from outside the cluster
+# Ingress
+kubectl get pods -n ingress-nginx
+kubectl get ingressclasses
+Ingress rules: host, path, backend service, backend service port
+kubectl create ingress next-app \
+  --rule="next.example.com/app=app-service:8080" \
+  --rule="next.example.com/metrics=metrics-service:9090"
+# path types: exact, prefix, implementationSpecific
+kubectl get ingress
+kubectl get ingress next-app -o yaml
+kubectl describe ingress next-app
+kubectl run app --image=k8s.gcr.io/echoserver:1.10 --port=8080 -l app=app-service
+kubectl run metrics --image=k8s.gcr.io/echoserver:1.10 --port=8080 -l app=metrics-service
+kubectl create service clusterip app-service --tcp=8080:8080
+kubectl create service clusterip metrics-service --tcp=9090:8080
+kubectl get ingress next-app --output=jsonpath="{.status.loadBalancer.ingress[0]['ip']}"
+wget next.example.com/app --timeout=5 --tries=2
