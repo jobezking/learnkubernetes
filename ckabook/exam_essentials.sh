@@ -149,3 +149,6 @@ A main ingress routing to blue version, and a canary ingress for testing green v
 Assign the hostname app.production.com. The traffic routing should look as follows: Default traffic goes to blue version. 
 Twenty percent of traffic goes to green version (canary). Add an entry in /etc/hosts that maps the load balancer IP address 
 to the host app.production.com. Verify access to the Ingresses via this hostname. Test the blue-green traffic routing distribution.
+Chapter 19
+Check on existing GatewayClasses
+Understand the Gateway API CRDs

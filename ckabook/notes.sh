@@ -639,3 +639,62 @@ kubectl create service clusterip app-service --tcp=8080:8080
 kubectl create service clusterip metrics-service --tcp=9090:8080
 kubectl get ingress next-app --output=jsonpath="{.status.loadBalancer.ingress[0]['ip']}"
 wget next.example.com/app --timeout=5 --tries=2
+# Gateay API Resources
+GatewayClass: actual kind of gateway controller that will handle traffic for the gateay. Each Gateway has gatewayclass
+HTTPRoute/GRPCRoute: defines HTTP or GRPC specific rules for mapping traffic from Gateway listener to backend network endpoint (services)
+ReferenceGrant: enables cross-namespace references within gateay API i.e forwarding traffic to backends (services) in other namespaces
+kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.3.0/standard-install.yaml
+kubectl get crds | grep gateway.networking.k8s.io
+helm install eg oci://docker.io/envoyproxy/gateway-helm --version v.1.4.2 -n envoy-gateway-system --create-namespace
+kubectl wait --timeout=5m -n envoy-gateway-system deployment/envoy-gateway --for=condition=Available
+#
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  name: envoy
+spec:
+  controllerName: gateway.envoyproxy.io/gatewayclass-controller
+#
+kubectl get gatewayclasses
+#
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata: 
+  name: hello-world-gateway
+spec:
+  gatewayClassName: envoy
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+#
+kubectl get gateways
+#
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: hello-world-httproute
+spec:
+  parentRefs:
+    - name: hello-world-gateway
+  hostnames:
+    - "hello-world.exposed"
+  rules:
+    - backendRefs:
+        - group: ""            
+          kind: Service        
+          name: web            
+          port: 3000           
+          weight: 1            
+      matches:
+        - path:
+            type: PathPrefix   
+            value: /
+#
+kubectl get httproutes
+export ENVOY_SERVICE=$(kubectl get svc -n envoy-gateway-system \
+--selector=gateway.envoyproxy.io/owning-gateway-namespace=default,\
+gateway.envoyproxy.io/owning-gateway-name=hello-world-gateway \
+-o jsonpath='{.items[0].metadata.name}')
+kubectl -n envoy-gateway-system port-forward service/${ENVOY_SERVICE} 8889:80 &
+curl hello-world.exposed:8889
