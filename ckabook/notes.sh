@@ -583,6 +583,42 @@ spec:
 kubectl get pv,pvc -o wide
 #Services
 #Access Scopes
-# LoadBalancer: accessible outside k8s cluster using external load balance
-# NodePort: accessible outside k8s cluster using node ip and port
-# ClusterIP: accessible only inside k8s cluster
+# LoadBalancer: accessible outside k8s cluster using external load balancer. 
+# NodePort: accessible outside k8s cluster using node ip and port. Exposes the Service on each node’s IP address at a static port. Accessible from outside of the cluster. The Service type does not provide any load balancing across multiple nodes.
+# ClusterIP: accessible only inside k8s cluster. Exposes the Service on a cluster-internal IP. Reachable only from within the cluster. Kubernetes uses a round-robin algorithm to distribute traffic evenly among the targeted Pods.
+#Quickly create pod and service using kubectl run (imperative approach)
+kubectl run echoserver --image=k8s.gcr.io/echoserver:1.10 --restart= Never --port=8080
+kubectl create service clusterip echoserver --tcp=8080:8080
+# combine the two
+kubectl run echoserver --image=k8s.gcr.io/echoserver:1.10 --restart=Never --port=8080 --expose
+# Deployment with service
+kubectl create deployment echoserver --image=hashicorp/http-echo:1.0.0 --replicas=5
+kubectl expose deployment echoserver --port=80 --target-port=8080
+kubectl get svc echoserver -o yaml
+kubectl get endpoints echoserver -o yaml
+kubectl get pods -l app=echoserver
+kubectl describe svc echoserver
+kubectl get endpointslices -l app=echoserver
+kubectl describe endpointslice echoserver-xxxxx
+#ClusterIP
+kubectl run echoserver --image=k8s.gcr.io/echoserver:1.10 --restart=Never --port=8080 -l app=echoserver
+kubectl create service clusterip echoserver --tcp=5005:8080
+wget 10.96.254.0:5005 --timeout=5  --tries=2 # access service using ClusterIP from inside the cluster
+kubectl run tmp --image=busybox:1.36.1 --restart=Never -it --rm -- wget 10.96.254.0:5005 # access service using ClusterIP from inside the cluster
+kubectl run tmp --image=busybox:1.36.1 --restart=Never -it --rm -n other -- wget echoserver.default.svc.cluster.local:5005 
+# access service using DNS from inside the cluster in different namespace
+kubectl exec -it echoserver -- env # service environment variables are automatically injected into the pod by kubernetes
+#NodePort
+kubectl run echoserver --image-k8s.gcr.io/echoserver:1.10 --restart=Never --port=8080 -l app=echoserver
+kubectl create service nodeport echoserver --tcp=5005:8080
+kubectl get svc echoserver -o yaml      # presume it gives 5005:30158 as ports. 30158 is the node port. 5005 is the target port. 8080 is the container port.
+kubectl get endpoints echoserver -o yaml  
+kubectl run tmp --image=busybox:1.36.1 --restart=Never -it --rm -- wget 10.96.254.0:5005 # access service using ClusterIP from inside the cluster
+kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="InternalIP")].address}' # get node IP address
+wget <node-ip>:30158 --timeout=5  --tries=2 # access service using NodePort from outside the cluster
+# Load Balancer (only for cloud)
+kubectl run echoserver --image=k8s.gcr.io/echoserver:1.10 --restart=Never --port=8080 -l app=echoserver
+kubectl create service loadbalancer echoserver --tcp=5005:8080
+kubectl get svc echoserver -o yaml     
+# gives CLUSTER-IP, EXTERNAL-IP, PORT(S) 5005:30158/TCP
+wget <external-ip>:5005 --timeout=5  --tries=2 # access service using LoadBalancer from outside the cluster

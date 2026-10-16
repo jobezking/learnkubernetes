@@ -114,3 +114,17 @@ Mount the PersistentVolumeClaim in a Pod named app-consuming-pvc in the namespac
 The container should use the image alpine:3.21.3. Wait until the Pod transitions into the Running status. 
 Ensure that the PersistentVolume object has been created dynamically. 
 Open an interactive shell to the container, and create a new file named test.db in /mnt/data. Exit out of the Pod.
+Chapter 17
+Understand the purpose of a Service, practice how to access a service for each type, work through service troubleshooting scenarios
+1. You need to expose a web application that runs on port 80 and has a metrics endpoint on port 9090. 
+The application should be accessible from outside the cluster. Create a Deployment named webapp using the image nginxdemos/hello:0.4-plain-text 
+with three replicas. Create a Service named webapp-service of type NodePort that exposes 
+port 80 as port 80 (name it web), and exposes port 9090 as port 9090 (name it metrics). Set the node port for the web port to 30080. 
+Use appropriate selectors to target your Deployment. Verify the Service is working by accessing it through the ClusterIP.
+2. You have a backend database and a frontend application. The frontend needs to connect to the database using service discovery. 
+Both should only be accessible within the cluster. Create a Deployment named database with one replica using image mysql:9.4.0 
+with these environment variables: MYSQL_ROOT_PASSWORD=secretpass and MYSQL_DATABASE=myapp. 
+Create a ClusterIP Service named database-service that exposes port 3306 and targets the database Pods.
+Create a Deployment named frontend with two replicas using image busybox:1.35 that runs a command to continuously test the database
+connection using the following command: sh -c "while true; do nc -zv database-service 3306; sleep 5; done" 
+Verify that the frontend Pods can resolve and connect to the database Service.
