@@ -11,3 +11,24 @@ kubectl port-forward nginx-xxxx 2500:80
 curl -Is localhost:2500 | head -n
 # get interactive shell in pod to troubleshoot
 kubectl exec failing-pod -it -- /bin/sh
+# Troubleshooting networking and servies
+1. Make sure services and pods have matching labels
+kubectl describe service myservice | grep Selector
+kubectl get pods --show-labels
+2. Service to port mapping
+kubectl get service myapp -o yaml | grep
+kubectl get pods myapp-68bf896d89-qfhlv -o yaml | grep
+3. check service endpoints
+kubectl get endpoints myservice
+4. see if service has the correct type i.e. clusterIP, nodePort. 
+# Ensure that the output lists the number of Pod IP addresses and container ports expected to be selected by the Service:
+kubectl get services
+kubectl run tmp --image=busybox:1.37.0 -it --rm -- wget [CLUSTER-IP]:[PORT]
+5. use service DNS name to check DNS resolution
+kubectl run tmp --image=busybox:1.37.0 -it --rm -- wget myservice:80
+kubectl run tmp --image=busybox:1.37.0 -it --rm -- wget myservice.default.svc.cluster.local:80
+6. Validate CoreDNS (for DNS issues)
+kubectl get pods -n kube-system -l k8s-app=kube-dns
+kubectl logs -n kube-system -l k8s-app=kube-dns --tail=50
+7. Vet network policies
+kubectl get networkpolicies -n production
