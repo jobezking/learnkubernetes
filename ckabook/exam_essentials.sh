@@ -156,3 +156,8 @@ Chapter 20
 Understand the purpose and effects of network policies
 Know how to implement the principle of least privilege
 Explore common network policy scenarios
+Chapter 21
+Know how to troubleshoot applications
+Make accessing container logs your daily bread and butter using kubectl logs with -c option to target specific container
+Know how to diagnose networking issues
+go to pg 446 of book

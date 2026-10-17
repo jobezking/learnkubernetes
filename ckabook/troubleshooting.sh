@@ -11,6 +11,9 @@ kubectl port-forward nginx-xxxx 2500:80
 curl -Is localhost:2500 | head -n
 # get interactive shell in pod to troubleshoot
 kubectl exec failing-pod -it -- /bin/sh
+4a. get pod logs
+kubectl logs incorrect-cmd-pod
+kubectl logs incorrect-cmd-pod -c mysql  # for a single container in a multi-container pod
 # Troubleshooting networking and servies
 1. Make sure services and pods have matching labels
 kubectl describe service myservice | grep Selector
@@ -32,3 +35,9 @@ kubectl get pods -n kube-system -l k8s-app=kube-dns
 kubectl logs -n kube-system -l k8s-app=kube-dns --tail=50
 7. Vet network policies
 kubectl get networkpolicies -n production
+kubectl describe networkpolicy api-policy -n production
+kubectl exec -it frontend-pod -n production -- curl http://backend-service:8080
+8. check memory
+kubectl top nodes
+kubectl top pod frontend
+Learn how to retrieve and interpret resource metrics
