@@ -161,3 +161,7 @@ Know how to troubleshoot applications
 Make accessing container logs your daily bread and butter using kubectl logs with -c option to target specific container
 Know how to diagnose networking issues
 go to pg 446 of book
+Chapter 22
+Master quick node diagnostics and recovery
+Know system Pod locations and recovery commands
+Fix Pod scheduling issues

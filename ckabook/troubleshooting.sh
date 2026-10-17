@@ -54,3 +54,23 @@ kubectl get nodes: returns status which can include Ready and NotReady. Reason f
 1. Insufficent resources: node may be low on memory or disk space
 2. Issues with the kubelet process
 3. Issues with kube-proxy
+
+# check resources
+kubectl describe node worker-1
+top
+df -h
+# check kubelet status
+sudo systemctl status kubelet
+sudo journalctl -u kubelet.ervice
+sudo systemctl restart kubelet
+# check certificate validity
+openssl x509 -in /var/lib/kubelet/pki/kubelet.crt
+kubeadm certs check-expiration
+kubectl certs renew all
+# check kube-proxy pod
+kubectl get pods -n kube-system
+kubectl describe pod kube-proxy-csrww -n kube-system
+kubectl describe daemonset kube-proxy -n kube-system 
+# The logs may come in handy as well. You will be able to check the logs for the kube-proxy Pod that runs on the specific worker node: 
+kubectl describe pod kube-proxy-csrww -n kube-system | grep Node:
+kubectl logs kube-proxy-csrww -n kube-system
