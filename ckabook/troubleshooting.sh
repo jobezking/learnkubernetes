@@ -41,3 +41,16 @@ kubectl exec -it frontend-pod -n production -- curl http://backend-service:8080
 kubectl top nodes
 kubectl top pod frontend
 Learn how to retrieve and interpret resource metrics
+#### Nodes ####
+kubectl get nodes
+kubectl get pods -n kube-system
+# check kube-apiserver, etcd, kube-scheduler, core-dns, kube-controller-manager, optionally cloud-controller-manager on control plane
+# kubelet, kube-proxy, container runtime on control plane and worker nodes
+kubectl logs kube-apiserver -n kube-system
+kubectl cluster-info
+kubectl cluster-info dump
+#
+kubectl get nodes: returns status which can include Ready and NotReady. Reason for NotReady:
+1. Insufficent resources: node may be low on memory or disk space
+2. Issues with the kubelet process
+3. Issues with kube-proxy
