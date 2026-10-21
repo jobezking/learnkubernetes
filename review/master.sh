@@ -1,5 +1,6 @@
 $HOME/.kube/config
 kubectl config view [--flatten | --minify | --output='json' | --output='yaml']
+kubectl get events -o wide
 kubectl describe namespace default
 kubectl create ns hydra
 kubectl get pods -l type=front-end
@@ -48,6 +49,7 @@ kubectl run webp --image=nginx --port=80 # run pod named web with nginx containe
 kubectl delete pod webp # delete pod named web
 kubectl create deployment webd --image=nginx # create deployment named web with nginx image
 kubectl scale deployment webd --replicas=3 # scale deployment named web to 3 replicas
+kubectl create deployment --image=nginx nginx --dry-run=client -o yaml
 
 kubectl rollout status deployment deployment-name
 kubectl rollout history deployment deployment-name
@@ -64,6 +66,9 @@ kubectl rollout undo deployment webserver --to-revision=2
 kubectl get services
 kubectl get svc <your-service-name>
 kubectl describe service service-name
+kubectl create service clusterip redis --tcp=6379:6379 --dry-run=client -o yaml
+kubectl expose pod nginx --type=NodePort --port=80 --name=nginx-service --dry-run=client -o yaml
+kubectl create service nodeport nginx --tcp=80:80 --node-port=30080 --dry-run=client -o yaml
 
 Service ports
 # nodePort: port exposed by container inside pod. 
@@ -79,3 +84,15 @@ End User ➔ nodePort ➔ port ➔ targetPort ➔ MySQL Container
 
 Outbound Traffic flow (response)
 MySQL Container ➔ targetPort ➔ port ➔ nodePort ➔ End User
+
+# Imperative
+kubectl run redis --image=redis:alpine -l tier=backend # create a pod named redis with the redis:alpine image, label tier=backend
+kubectl create deployment --image=nginx blue --dry-run=client -o yaml > bluedeployment.yaml
+kubectl create deployment webapp --image=kodekloud/webapp-color --replicas=3 # create a deployment named webapp with the kodekloud/webapp-color image and 3 replicas
+kubectl expose deployment nginx --port=80 --target-port=80 --type=LoadBalancer  # expose the nginx deployment as a service
+kubectl expose pod redis --port=6379 --name=redis-service --type=ClusterIP # expose the redis pod as a service named redis-service of type ClusterIP
+kubectl create namespace dev-ns
+kubectl create deployment redis-deploy --image=redis --replicas=2 --namespace=dev-ns
+kubectl run httpd --image=httpd:alpine
+kubectl expose pod httpd --port=80 --name=httpd --type=ClusterIP --port=80
+kubectl run httpd --image=httpd:alpine --port=80 --expose  # combines the above two commands into one command
