@@ -151,3 +151,85 @@ kubectl logs -f <pod-name>
 # If there are multiple containers in a pod:
 kubectl logs <pod-name> -c <container-name>
 kubectl logs -f <pod-name> <container-name>
+
+#Configmap
+#IMPERATIVE
+kubectl create configmap <configmap-name> --from-literal=<key>=<value>
+kubectl create configmap appconfig --from-literal=APP_COLOR=green --from-literal=APP_MOD=PROD
+kubectl create configmap webapp-config-map --from-literal=APP_COLOR=darkblue --from-literal=APP_OTHER=disregard
+kubectl create configmap <configmap-name> --from-file=<path-to-file>
+kubectl create configmap app-config --from-file=<app_config.properties>
+kubectl get configmaps
+kubectl describe configmap <configmap-name>
+
+# Secret
+echo -n 'mysql.example.com' | base64
+kubectl create secret generic <secret-name> --from-literal=<key>=<value>
+kubectl create secret generic app-secret --from-literal=DB_HOST=mysql.example.com \
+    --from-literal=DB_USER=myuser --from-literal=DB_PASSWORD=mypass
+kubectl create secret generic app-secret --from-file=<path-to-file>
+kubectl create secret generic app-secret --from-file=app-secrets.properties
+kubectl get secrets
+kubectl describe secret <secret-name>
+kubectl describe secret -o yaml
+
+# Scaling
+# manual
+kubectl top pods
+kubectl top pod my-app
+kubectl scale deployment/my-app --replicas=3
+# automatic
+kubectl autoscale deployment/my-app --min=1 --max=10 --cpu-percent=60  # will create horizontal pod autoscaler (HPA) that polls 
+# metrics server for CPU utilization
+kubectl delete hpa my-app # deletes the horizontal pod autoscaler
+
+kubectl get networkpolicy
+# Authorization/Access commands
+cat /etc/kubernetes/manifests/kube-apiserver.yaml
+ps -aux | grep authorization
+kubectl describe pod kube-apiserver-controlplane -n kube-system
+kubectl get roles [--namespace=]
+kubectl get rolebindings [--namespace=]
+kubectl config view
+# Roles and Rolebindings are namespace-scoped. Resources are either namespaced or cluster-scoped
+kubectl api-resources --namespaced=true
+kubectl api-resources --namespaced=false
+kubectl describe role kube-proxy -n kube-system
+kubectl get pods --as dev-user
+kubernetes create role --help
+kubectl create role developer --namespace=default --verb=list,create,delete --resource=pods
+kubectl create rolebinding dev-user-binding --namespace=default --role=developer --user=dev-user
+kubectl auth can-i create deployments
+kubectl auth can-i delete nodes
+kubectl auth can-i create deployments --as dev-user
+kubectl auth can-i create pods --as dev-user
+kubectl auth can-i create pods --as dev-user --namespace test
+# clusterroles. Below are examples. Roles are defined.
+cluster admin  #view, create, delete nodes
+storage admin  #view, create, delete PVs (persistent volumes)
+#service accounts
+# Every namespace has default service account which is automatically attached to pods on their creation
+# service account gets mounted at a projected volume in pod 
+kubectl get pods -o yaml | grep serviceAccountName
+kubectl get serviceaccount
+kubectl describe serviceaccount default       # default k8s svc accnt
+kubectl describe pod my-kubernetes-dashboard | grep -i 'Service Account'
+kubectl exec -it my-kubernetes-dashboard ls /var/run/secrets/kubernetes.io/serviceaccount
+kubectl create serviceaccount dashboard-sa
+# to associate service account with a pod, use field serviceAccountName in pod's spec field i.e. spec.serviceAccountName
+# if you do not want the token mounted in a pod, you can use the field automountServiceAccountToken: false either in the service
+# account definition or the pods spec definition
+kubectl create token dashboard-sa --duration 2h # create token whose output can be used in application calls to kubernetes API
+# Verify the token is mounted at the expected path:
+kubectl exec $(kubectl get pod -l name=web-dashboard -o jsonpath='{.items[0].metadata.name}') -- ls /var/run/secrets/kubernetes.io/serviceaccount/
+
+# Kubernetes volumes
+# need to attach volumes to pods for data processed by pod to be preserved when pod is destroyed
+# persistent volumes: cluster-wide storage. access modes are ReadOnlyMany, ReadWriteOnce, ReadWriteMany
+# persistent volume claim: each PVC is bound to a single PV
+kubectl get persistentvolume
+kubectl get persistentvolumeclaim
+kubectl delete persistentvolumeclaim
+
+kubectl exec podname -- cat filename
+kubectl exec webapp -- cat /log/app.log
