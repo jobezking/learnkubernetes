@@ -40,7 +40,7 @@ sudo kubeadm init --apiserver-advertise-address 192.168.1.161 --pod-network-cidr
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
-To test: kubectl get nodes
+To test: kubectl get nodes # will show NOTREADY until flannel or other networking is installed
 # add flannel networking
 # If you use custom podCIDR (not 10.244.0.0/16) you first need to download the YAML below and modify the network to match your one.
 kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
