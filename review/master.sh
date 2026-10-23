@@ -105,10 +105,10 @@ kubectl run httpd --image=httpd:alpine
 kubectl expose pod httpd --port=80 --name=httpd --type=ClusterIP --port=80
 kubectl run httpd --image=httpd:alpine --port=80 --expose  # combines the above two commands into one command
 # Node selection # this section will need further study
-kubectl get componentstatuses
+kubectl get componentstatuses # kubectl get cs  DEPRECATED with 1.91
 kubectl get priorityclasses # see all priority classes
 kubectl get pods -o custom-columns="NAME:.metadata.name,PRIORITY:.spec.priorityClassName"
-kubectl get cs   # see component status
+
 kubectl describe pod nginx | grep -i node  # check the node the pod is running on
 kubectl get pods -n kube-system   # see if scheduler pod is running
 kubectl replace --force -f pod-definition.yaml  # force replace a pod definition (deletes the pod and creates a new one)
