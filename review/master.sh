@@ -37,7 +37,7 @@ kubectl port-forward <pod-name> 8080:80 # opens up a connection that forwards tr
 kubectl get nodes,pods,services    # no spaces
 kubectl get namespaces
 kubectl describe nodes kube1
-kubectl getcomponentstatuses
+kubectl getcomponentstatuses # kubectl get cs ... this is deprecated
 kubectl get daemonSets --namespace=kube-system kube-proxy
 kubectl get deployments --namespace-kube-system core-dns
 kubectl get services --namespace-kube-system core-dns
@@ -51,6 +51,7 @@ kubectl drain   #remove any pod currently running on machine
 kubectl uncordon    #re-enable pod scheduling
 kubectl logs
 kubectl logs hello-pod
+kubectl logs deployment/coredns -n kube-system
 #
 kubectl run webp --image=nginx --port=80 # run pod named web with nginx container and port 80 exposed
 kubectl delete pod webp # delete pod named web
