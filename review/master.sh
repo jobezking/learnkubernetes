@@ -3,7 +3,7 @@ kubectl config view [--flatten | --minify | --output='json' | --output='yaml']
 kubectl get events -o wide
 kubectl describe namespace default
 kubectl create ns hydra
-kubectl get pods -n all -o wide
+kubectl get pods -A -o wide
 kubectl get pods -l type=front-end
 kubectl get pods,svc -n hydra
 kubectl delete ns hydra
