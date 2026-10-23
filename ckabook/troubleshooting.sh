@@ -61,7 +61,7 @@ top
 df -h
 # check kubelet status
 sudo systemctl status kubelet
-sudo journalctl -u kubelet.ervice
+sudo journalctl -u kubelet.service
 sudo systemctl restart kubelet
 # check certificate validity
 openssl x509 -in /var/lib/kubelet/pki/kubelet.crt
