@@ -34,7 +34,7 @@ exit
 kubectl attach -it <pod-name>
 kubectl cp nginx:/www/var/html/index.html /home/user/test.html  #copies file from running container to your local machine.
 kubectl port-forward <pod-name> 8080:80 # opens up a connection that forwards traffic from the local machine on port 8080 to the remote container on port 80.
-kubectl get nodes, pods, services
+kubectl get nodes,pods,services    # no spaces
 kubectl get namespaces
 kubectl describe nodes kube1
 kubectl getcomponentstatuses
