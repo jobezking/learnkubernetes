@@ -1,3 +1,7 @@
+Reference manual: https://kubernetes.io/docs 
+Blog: https://kubernetes.io/blog 
+Helm: https://helm.sh/docs
+
 $HOME/.kube/config
 kubectl config view [--flatten | --minify | --output='json' | --output='yaml']
 kubectl get events -o wide
