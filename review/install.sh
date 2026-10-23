@@ -18,7 +18,7 @@ sudo systemctl restart containerd
 
 sudo swapoff -a
 # Permanently disable swap by commenting out any swap line in /etc/fstab:
-sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab # if this does not work edit /etc/fstab manually
 
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
 overlay
