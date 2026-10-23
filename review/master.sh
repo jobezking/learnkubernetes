@@ -46,9 +46,9 @@ kubectl label pods bar color-    # remove label color
 kubectl delete pod nginx-pod
 kubectl top nodes
 kubectl top pods --all-namespaces
-kubectl cordon  #prevent future pods from being scheduled on the machine that the command was entered
+kubectl cordon node01 #prevent future pods from being scheduled on the machine that the command was entered
 kubectl drain   #remove any pod currently running on machine
-kubectl uncordon    #re-enable pod scheduling
+kubectl uncordon node01   #re-enable pod scheduling
 kubectl logs
 kubectl logs hello-pod
 kubectl logs deployment/coredns -n kube-system
