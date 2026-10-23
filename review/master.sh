@@ -12,6 +12,7 @@ kubectl get pods -l type=front-end
 kubectl get pods,svc -n hydra
 kubectl delete ns hydra
 kubectl get serviceaccount -n kube-system
+kubectl config get-contexts
 kubectl config set-context my-context --namespace=mystuff  # creates context
 kubectl config set-context --current --namespace default
 kubectl config use-context my-context  # makes context active
