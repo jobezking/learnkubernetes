@@ -16,5 +16,4 @@ sudo ETCDCTL_API=3 etcdctl \
   --cert=/etc/kubernetes/pki/etcd/server.crt \
   --key=/etc/kubernetes/pki/etcd/server.key snapshot save /opt/etcd.bak
 
-etcdutl backup --data-dir /var/lib/etcd --backup-dir /opt/etcd.bak
 etcdutl --data-dir /var/bak snapshot restore /opt/etcd.bak
