@@ -104,3 +104,4 @@ curl -s \
   -H "Authorization: Bearer $TOKEN" \
   --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt \
   https://kubernetes.default.svc/api/v1/namespaces/rm/pods
+# Chapter 7
