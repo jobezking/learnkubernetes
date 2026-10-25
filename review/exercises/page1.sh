@@ -106,3 +106,4 @@ curl -s \
   https://kubernetes.default.svc/api/v1/namespaces/rm/pods
 # Chapter 7
 kubectl get crds
+# Chapter 8
