@@ -70,3 +70,37 @@ rules: []
 # Render the selected rules of the ClusterRole combined. How many rules do you see?
 kubectl describe clusterrole combined
 kubectl get clusterrole combined -o yaml
+
+#Create a servcice account named api-access in new namespace called apps
+kubectl create ns apps
+kubectl create serviceaccount api-access -n apps
+# Create a cluster role with the name api-clusterrole
+kubectl create clusterrole api-clusterrole --verb=get,list,watch --resource=pods,services --dry-run=client -o yaml > api-clusterrole.yaml
+# Create a clusterrolebinding with the name api-clusterrolebinding
+kubectl create clusterrolebinding api-clusterrolebinding --clusterrole=api-clusterrole -serviceaccount=apps:api-access --dry-run=client -o yaml > crb.yml
+# Create a pod named operator with the image nginx:1.21.1 in namespace apps with port 80 exposed. Assign sa api-access to pod
+kubectl run operator --image nginx:1.21.1 --port=80 -n apps --dry-run=client -o yaml > operator.yml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: operator
+  namespace: apps
+spec:
+  serviceAccountName: api-access
+  containers:
+  - name: operator
+    ports:
+    - containerPort: 80
+    image: nginx
+# Create pod named disposable with image nginx:1.21.1 in namespace rm. Do not assign service account to pod
+kubectl create ns rm
+kubectl run disposable --image nginx:1.21.1 -n rm
+# open an interactive shell to pod operator
+kubectl exec -it operator -n apps -- sh
+# use curl to make an API call to list the pods in namespace rm
+TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+
+curl -s \
+  -H "Authorization: Bearer $TOKEN" \
+  --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt \
+  https://kubernetes.default.svc/api/v1/namespaces/rm/pods
