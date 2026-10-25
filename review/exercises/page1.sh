@@ -124,3 +124,7 @@ resources:
 kubectl kustomize manifests
 kubectl apply -k manifests
 kubectl delete -k manifests
+resources:
+  - configmap.yaml
+  - nginx.yaml
+namespace: t012
