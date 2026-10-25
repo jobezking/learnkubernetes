@@ -43,3 +43,17 @@ sudo ETCDCTL_API=3 etcdctl \
   --key=/etc/kubernetes/pki/etcd/server.key snapshot save /opt/etcd.bak
 
 etcdutl --data-dir /var/bak snapshot restore /opt/etcd.bak
+# Chapter 6
+kubectl config view
+kubectl config current-context
+kubectl config use-context
+kubectl config set-credentials myuser --client-key=myuser.key --client-certificate=myuser.crt --embed-certs=true
+#Create a ClusterRole with the name service-view to the API resources services with the operations get and list
+kubectl create clusterrole service-view --verb=verb --resource=resource.group [--resource-name=resourcename] [--dry-run=server|client|none]
+kubectl create clusterrole service-view --verb=get,list --resource=services
+# Create the RoleBinding named ellasmith-service-view in the development namespace
+kubectl create rolebinding NAME --clusterrole=NAME|--role=NAME [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run=server|client|none]
+kubectl create rolebinding ellasmith-service-view --clusterrole=service-view --user=ellasmith --namespace=development
+# Map the user ellasmith to the ClusterRole service-view.
+kubectl create clusterrolebinding NAME --clusterrole=NAME [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run=server|client|none]
+kubectl create clusterrolebinding ellasmith-service-view --clusterrole=service-view --user=ellasmith
