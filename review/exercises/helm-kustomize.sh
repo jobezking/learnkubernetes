@@ -13,3 +13,4 @@ helm uninstall my-jenkins
 # kustomize needs kustomization.yaml
 kubectl kustomize <target>  # dry run
 kubectl apply -k <target>  # process with kustomize
+

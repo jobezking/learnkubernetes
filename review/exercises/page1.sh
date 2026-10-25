@@ -115,3 +115,12 @@ helm list
 helm repo update
 helm upgrade my-kube-prometheus-stack prometheus-community/kube-prometheus-stack
 helm uninstall my-kube-prometheus-stack
+kubectl run nginx --image=nginx:1.21.1 --dry-run=client -o yaml > manifests/nginx.yaml
+kubectl create configmap logs-config --from-literal=dir=/etc/logs/traffic.log --dry-run=client -o yaml > manifests/configmap.yaml
+cat manifests/kustomization.yaml 
+resources:
+  - configmap.yaml
+  - nginx.yaml
+kubectl kustomize manifests
+kubectl apply -k manifests
+kubectl delete -k manifests
