@@ -107,3 +107,11 @@ curl -s \
 # Chapter 7
 kubectl get crds
 # Chapter 8
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm search repo <chart-name> --versions
+helm install my-kube-prometheus-stack prometheus-community/kube-prometheus-stack --version 92.13.1
+kubectl port-forward service/prometheus-operated 8080:9090  # Use the kubectl port-forward command to forward the local port 8080 to the port 9090 of the service
+helm list
+helm repo update
+helm upgrade my-kube-prometheus-stack prometheus-community/kube-prometheus-stack
+helm uninstall my-kube-prometheus-stack
