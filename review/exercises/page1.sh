@@ -57,3 +57,16 @@ kubectl create rolebinding ellasmith-service-view --clusterrole=service-view --u
 # Map the user ellasmith to the ClusterRole service-view.
 kubectl create clusterrolebinding NAME --clusterrole=NAME [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run=server|client|none]
 kubectl create clusterrolebinding ellasmith-service-view --clusterrole=service-view --user=ellasmith
+Create a ClusterRole with the name combined. Aggregate cluster roles based on the matching label key-value pair rbac.cka.cncf.com/aggregate: "true"
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: combined
+aggregationRule:
+  clusterRoleSelectors:
+  - matchLabels:
+      rbac.cka.cncf.com/aggregate: "true"
+rules: []
+# Render the selected rules of the ClusterRole combined. How many rules do you see?
+kubectl describe clusterrole combined
+kubectl get clusterrole combined -o yaml
