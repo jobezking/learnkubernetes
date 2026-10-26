@@ -62,3 +62,31 @@ spec:
       secretName: secret-ssh-auth
 kubectl exec -it backend -- /bin/sh
 #chapter 11
+kubectl create deployment nginx --image=nginx:1.23.0 --replicas=3 --dry-run=client -o yaml > nginxdeployment.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    tier: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: v1
+  template:
+    metadata:
+      labels:
+        app: v1
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.23.0
+kubectl set image (-f FILENAME | TYPE NAME) CONTAINER_NAME_1=CONTAINER_IMAGE_1 ... CONTAINER_NAME_N=CONTAINER_IMAGE_N
+kubectl set image deployment/nginx nginx=nginx:1.23.4 
+kubectl annotate [--overwrite] (-f FILENAME | TYPE NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--resource-version=version]
+kubectl annotate deployment/nginx kubernetes.io/change-cause="Pick up patch version" --overwrite
+kubectl rollout status deployment/nginx
+kubectl rollout history deployment/nginx
+kubectl rollout undo (TYPE NAME | TYPE/NAME) [flags]
+kubectl rollout undo deployment/nginx --to-revision=1
