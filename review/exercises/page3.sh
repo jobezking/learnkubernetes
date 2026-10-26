@@ -16,3 +16,36 @@ spec:
     limits.cpu: "4"           
     limits.memory: 4096Mi
 # chapter 14
+#node selectors
+kubectl label node multi-node-m03 disk-ssd
+kubectl get nodes --show-labels
+#use spec.NodeSelector to assign pod
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app
+spec:
+  nodeSelector:                
+    disk: ssd             
+  containers:
+  - name: nginx
+    image: nginx:1.27.1
+# Node affinity
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app
+spec:
+  affinity:
+    nodeAffinity:                                              
+      requiredDuringSchedulingIgnoredDuringExecution:   
+        nodeSelectorTerms:
+        - matchExpressions:                             
+          - key: disk                                   
+            operator: In                                
+            values:                                     
+            - ssd                                       
+            - hdd                                       
+  cont iners:
+  - name: nginx
+    image: nginx:1.27.1
