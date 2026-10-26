@@ -90,3 +90,4 @@ kubectl rollout status deployment/nginx
 kubectl rollout history deployment/nginx
 kubectl rollout undo (TYPE NAME | TYPE/NAME) [flags]
 kubectl rollout undo deployment/nginx --to-revision=1
+# chapter 12
