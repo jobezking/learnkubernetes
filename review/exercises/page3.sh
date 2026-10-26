@@ -71,3 +71,17 @@ spec:
 # Taints
 kubectl taint node multi-node-m02 special=true:NoSchedule
 kubectl get node node01 -o yaml | grep -C 3 taints:
+# Assign toleration to pod
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app
+spec:
+  tolerations:                
+  - key: "special"         
+    operator: "Equal"      
+    value: "true"          
+    effect: "NoSchedule"   
+  containers:
+  - name: nginx
+    image: nginx:1.27.1
