@@ -91,3 +91,30 @@ kubectl rollout history deployment/nginx
 kubectl rollout undo (TYPE NAME | TYPE/NAME) [flags]
 kubectl rollout undo deployment/nginx --to-revision=1
 # chapter 12
+kubectl scale [--resource-version=version] [--current-replicas=count] --replicas=COUNT (-f FILENAME | TYPE NAME)
+kubectl autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu=CPU] [--memory=MEMORY]
+kubectl get|describe hpa
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.23.4
+        resources:
+          requests:
+            cpu: "0.5"
+            memory: "500Mi"
+          limits:
+            memory: "500Mi"
+kubectl autoscale deployment nginx --min=3 --max=8 --cpu=75% --memory=60%
