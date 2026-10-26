@@ -68,3 +68,6 @@ spec:
   containers:
   - name: nginx
     image: nginx:1.27.1
+# Taints
+kubectl taint node multi-node-m02 special=true:NoSchedule
+kubectl get node node01 -o yaml | grep -C 3 taints:
