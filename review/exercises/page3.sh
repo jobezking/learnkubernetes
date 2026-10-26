@@ -49,3 +49,22 @@ spec:
   cont iners:
   - name: nginx
     image: nginx:1.27.1
+# Node Anti-affinity
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: disk
+            operator: NotIn                                             
+            values:
+            - ssd
+            - ebs
+  containers:
+  - name: nginx
+    image: nginx:1.27.1
