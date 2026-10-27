@@ -83,3 +83,53 @@ kubectl describe ingress next-app
 kubectl get gatewayclasses
 kubectl get gateways
 kubectl get httproutes
+# chapter 20
+kubectl run grocery-store --image=nginx:1.25.3-alpine -l app=grocery-store,role=backend --port 80
+kubectl run payment-processor --image=nginx:1.25.3-alpine -l app=gpayment-processor,role=api --port 80
+kubectl run coffe-shop --image=nginx:1.25.3-alpine -l app=coffee-shop,role=backend --port 80
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: api-allow
+spec:
+  podSelector:                          
+  matchLabels:
+      app: payment-processor
+      role: api
+  ingress:                         
+  - from:
+    - podSelector:
+        matchLabels:
+          app: coffee-shop
+
+kubectl get networkpolicy api-allow
+kubectl describe networkpolicy api-allow
+
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+  namespace: internal-tools
+spec:
+  podSelector: {}                     
+  policyTypes:                     
+  - Ingress                        
+  - Egress
+
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: port-allow
+  namespace: internal-tools
+spec:
+  podSelector:
+    matchLabels:
+      app: api
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: consumer
+    ports:                              
+    - protocol: TCP                
+      port: 80
