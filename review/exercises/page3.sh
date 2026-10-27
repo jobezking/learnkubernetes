@@ -90,3 +90,18 @@ kubectl label node node02-e color=green
 kubectl label node node01-e color=red
 kubectl run select --image=nginx:1.27.1 --dry-run=client -o yaml > select.yaml
 set spec.nodeSelector.color: green or red
+kubectl taint NODE NAME KEY_1=VAL_1:TAINT_EFFECT_1 ... KEY_N=VAL_N:TAINT_EFFECT_N
+kubectl taint nodes node02-e exclusive=yes:NoExecute
+apiVersion: v1
+kind: Pod
+metadata:
+  name: taint
+spec:
+  tolerations:
+  - key: "exclusive"
+    operator: "Equal"
+    value: "yes"
+    effect: "NoExecute"
+  containers:
+  - name: nginx
+    image: nginx:1.27.1
