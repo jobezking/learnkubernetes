@@ -79,3 +79,7 @@ kubectl get ingressclasses
 kubectl create ingress next-app --rule="next.example.com/app=app-service:8080" --rule="next.example.com/metrics=metrics-service:9090" --dry-run=client -o yaml > ingress.yml
 kubectl get ingress
 kubectl describe ingress next-app
+# chapter 19
+kubectl get gatewayclasses
+kubectl get gateways
+kubectl get httproutes
