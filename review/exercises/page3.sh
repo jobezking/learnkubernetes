@@ -85,3 +85,8 @@ spec:
   containers:
   - name: nginx
     image: nginx:1.27.1
+#
+kubectl label node node02-e color=green
+kubectl label node node01-e color=red
+kubectl run select --image=nginx:1.27.1 --dry-run=client -o yaml > select.yaml
+set spec.nodeSelector.color: green or red
