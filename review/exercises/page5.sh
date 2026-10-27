@@ -26,7 +26,7 @@ kubectl create deployment webapp --image=httpd --replicas=3
 # Create a Service named webapp-service of type NodePort that exposes port 80 as port 80 (name it web), 
 # and exposes port 9090 as port 9090 (name it metrics). Set the node port for the web port to 30080. 
 # Use appropriate selectors to target your deployment webapp
-kubectl create service nodeport webapp-service --dry-run=client --tcp=80:80 -o yaml > webapp-service.yml
+kubectl create service nodeport webapp-service --dry-run=client --tcp=80:80 --dry-run=client -o yaml > webapp-service.yml
 apiVersion: v1
 kind: Service
 metadata:
@@ -73,3 +73,9 @@ spec:
         - "while true; do nc -zv database-service 3306; sleep 5; done"
 
 kubectl logs -l app:frontend --tail=20
+# chapter 18
+kubectl get pods -n ingress-nginx
+kubectl get ingressclasses
+kubectl create ingress next-app --rule="next.example.com/app=app-service:8080" --rule="next.example.com/metrics=metrics-service:9090" --dry-run=client -o yaml > ingress.yml
+kubectl get ingress
+kubectl describe ingress next-app
