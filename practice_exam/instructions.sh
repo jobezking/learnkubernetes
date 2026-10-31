@@ -6,3 +6,4 @@ make seed-exam1     # apply Exam 1's lab state
 make seed-exam2     # apply Exam 2's lab state  
 make seed-exam3     # apply Exam 3's lab
 make reset          # return to the clean
+make verify # before exam 1
