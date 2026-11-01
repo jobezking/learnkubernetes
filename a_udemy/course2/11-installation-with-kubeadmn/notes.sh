@@ -1,18 +1,62 @@
-# High level
-1. Create 3 VMs: 1 master and 2 workers. In a real cluster you need 3 masters because of the 2/N + 1 quorum requirement for etcd server.
-2. Install containerd on all 3 nodes. 
-3. Install kubeadm on all 3 nodes.
-4. Initialize the master server.
-5. Install pod network on all 3 servers
-6. Join the worker nodes to the master.
-
-The vagrant file used in the next video is available here:
-https://github.com/kodekloudhub/certified-kubernetes-administrator-course
-Here's the link to the documentation:
 https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
 
+In the Proxmox UI → select your storage (e.g., local) → ISO Images → Upload or Download from URL.
+
+Select the Ubuntu ISO (ubuntu-24.04.3-live-server-amd64.iso).
+
+Create VM → Name it (e.g., k8s-control-01).
+
+OS tab
+
+	Select the uploaded ISO
+
+	Type: Linux
+
+System tab
+
+	Enable QEMU Guest Agent
+
+	Machine: q35 (recommended)
+
+	BIOS: OVMF (UEFI)
+
+Disks
+
+	40–60GB for control plane
+
+	60–120GB for data plane
+
+	20–40GB for registry
+
+CPU
+
+	Type: host
+
+	Sockets: 1
+
+	Cores: 2 for private Docker registry; 4 for control plane; 8 for data plane
+
+Memory
+
+	2 GB for private Docker registry; 4 GB for control plane, 8 GB for data plane
+
+Network
+
+	Model: VirtIO
+
+	Bridge: vmbr0
+
+Finish → Start VM → Install Ubuntu normally. Only enable SSH server. Reboot then remove ISO
+
+ip route 		#obtain IP address and default gateway
+upload and modify 50-cloud-init.yaml
+sudo mv /etc/netplan/50-cloud-init.yaml /etc/netplan/50-cloud-init.yaml.bak
+sudo mv 50-cloud-init.yaml /etc/netplan/50-cloud-init.yaml
+sudo netplan try
+
 # On all 3 nodes
-sudo apt-get update; sudo apt upgrade -y; sudo apt-get install -y apt-transport-https ca-certificates curl gpg
+sudo apt install -y 
+sudo apt-get update; sudo apt upgrade -y; sudo apt-get install -y apt-transport-https ca-certificates curl gpg qemu-guest-agent gnupg lsb-release vim
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.37/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.37/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
