@@ -50,6 +50,12 @@ To test: kubectl get nodes
 # add flannel networking
 # If you use custom podCIDR (not 10.244.0.0/16) you first need to download the YAML below and modify the network to match your one.
 kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+kubectl get nodes
+# add calico networking
+https://docs.tigera.io/calico/latest/getting-started/kubernetes/self-managed-onprem/onpremises
+kubectl get pods -n calico-system
+kubectl get nodes
+# Join workers
 sudo kubeadm token create --print-join-command  # provides command used to run on worker nodes
 
 # On worker nodes
