@@ -25,6 +25,7 @@ sudo systemctl restart containerd
 sudo swapoff -a
 # Permanently disable swap by commenting out any swap line in /etc/fstab:
 sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+sudo sed -i '/ swap.img / s/^\(.*\)$/#\1/g' /etc/fstab
 
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
 overlay
@@ -74,3 +75,6 @@ sudo ./get_helm.sh
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
 helm install ingress-nginx ingress-nginx/ingress-nginx   --namespace ingress-nginx   --create-namespace
+
+# storage class
+https://raw.githubusercontent.com/jobezking/myLinuxConfig/refs/heads/main/k8s/storageclass.yaml
