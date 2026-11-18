@@ -41,8 +41,6 @@ metadata:
   name: app-data-pvc
   namespace: storage-lab
 spec:
-  nodeSelector:
-    disk: nvme
   storageClassName: manual
   accessModes:
     - ReadWriteOnce
