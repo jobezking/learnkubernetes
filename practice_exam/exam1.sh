@@ -54,6 +54,8 @@ metadata:
   name: app-data-pod
   namespace: storage-lab
 spec:
+  nodeSelector:
+    disk: nvme
   containers:
     - name: app-data-container
       image: nginx:1.29-alpine
