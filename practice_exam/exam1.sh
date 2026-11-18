@@ -17,3 +17,50 @@ Verify:
 kubectl get nodes --show-labels
 kubectl get nodes --selector=disk=nvme
 kubectl get pods data-processor -n scheduling-lab -o wide
+3. Create PersistentVolume app-data-pv. Capacity: 2Gi, Access Mode: ReadWriteOnce, Storage Class: manual, backed by directory 
+/opt/k8s/app-data on node k8s-worker-01. Create PersistentVolumeClaim app-data-pvc in storage-lab namespace with capacity 1Gi, Access Mode: ReadWriteOnce, 
+Storage Class: manual. The claim must be bound to the PersistentVolume app-data-pv
+#
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: app-data-pv
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: manual
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /opt/k8s/app-data
+#
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: app-data-pvc
+  namespace: storage-lab
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+#
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-data-pod
+  namespace: storage-lab
+spec:
+  containers:
+    - name: app-data-container
+      image: nginx:1.29-alpine
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: app-data-volume
+  volumes:
+    - name: app-data-volume
+      persistentVolumeClaim:
+        claimName: app-data-pvc
