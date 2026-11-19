@@ -109,3 +109,6 @@ Save the following to file /var/log/cka/e1-t05-connectivity.txt on k8s-control-0
 - web-a pod IP address
 - web-b pod IP address
 - The word SUCCESS if web-a can contact web-b using its pod IP address, or the word FAILED if it cannot.
+kubectl run web-b --image=nginx:1.29-alpine -n web-lab
+kubectl run web-a --image=nginx:1.29-alpine -n web-lab
+kubectl exec -it web-a -n web-lab -- /bin/sh 
