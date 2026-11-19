@@ -66,3 +66,39 @@ spec:
     - name: app-data-volume
       persistentVolumeClaim:
         claimName: app-data-pvc
+4. PersistentVolume audit-archive-pv. Capacity: 5Gi, Storage Class: manual, backed by directory /opt/k8s/audit-archive on node k8s-worker-01. 
+Data must not be erased when PVC is deleted; admin has to release volume manually. persistentVolumeReclaimPolicy: Retain. 
+Mounted as ordinary directory: volumeMode: Filesystem. mounted by single pod at a time: Access Mode: ReadWriteOnce. 
+PersistentVolume build-scratch-pv. Capacity: 1Gi, Storage Class: manual, backed by directory /opt/k8s/build-scratch on node k8s-worker-01.
+Cluster should clean up on its own. persistentVolumeReclaimPolicy: Delete. 
+Mounted as ordinary directory: volumeMode: Filesystem. mounted by single pod at a time: Access Mode: ReadWriteOnce. 
+#
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: audit-archive-pv
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: manual
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
+  hostPath:
+    path: /opt/k8s/audit-archive
+#
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: build-scratch-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: manual
+  persistentVolumeReclaimPolicy: Delete
+  volumeMode: Filesystem
+  hostPath:
+    path: /opt/k8s/build-scratch
