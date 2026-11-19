@@ -102,3 +102,10 @@ spec:
   volumeMode: Filesystem
   hostPath:
     path: /opt/k8s/build-scratch
+5. Create pod web-a in namespace web-lab with image nginx:1.29-alpine
+Create pod web-b in namespace web-lab with image nginx:1.29-alpine
+From inside web-a contact web-b directly using web-b's pod IP address
+Save the following to file /var/log/cka/e1-t05-connectivity.txt on k8s-control-01, one item per line:
+- web-a pod IP address
+- web-b pod IP address
+- The word SUCCESS if web-a can contact web-b using its pod IP address, or the word FAILED if it cannot.
